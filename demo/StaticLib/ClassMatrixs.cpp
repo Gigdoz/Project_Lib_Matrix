@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Matrixs::Matrixs(const Matrixs &otherMatrix)
+Matrixs::Matrixs(const Matrixs &otherMatrix) // Constructor copying
 {
 	this->SetSizeMatrix(otherMatrix.rows, otherMatrix.cols);
 	for (UINT i = 0; i < otherMatrix.rows; i++)
