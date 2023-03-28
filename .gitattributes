@@ -1,4 +1,4 @@
 demo/* linguist-documentation=false
 demo/* linguist-vendored=false
-StatLib/* linguist-documentation=false
-StatLib/* linguist-vendored=false
+StaticLib/* linguist-documentation=false
+StaticLib/* linguist-vendored=false
