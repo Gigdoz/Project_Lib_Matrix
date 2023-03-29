@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.h"
-#include "Matrixs.h"
+#include "Matrix.h"
 #include <iomanip>
 
 TEST_CASE("Operator sum")
