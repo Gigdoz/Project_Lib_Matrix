@@ -9,30 +9,30 @@ void __throw_if_out_of_range(Matrix* m, UINT row, UINT col)
 {
 	if (row >= m->GetRows() || col >= m->GetCols())
 	{
-		throw std::out_of_range("Out of range!");
+		throw out_of_range("Out of range!");
 	}
 }
 void __throw_if_matrices_size_does_not_match(const Matrix* a, const Matrix* b)
 {
 	if (a->GetRows() != b->GetRows() || a->GetCols() != b->GetCols())
-		throw std::invalid_argument("The size of the matrices does not match!");
+		throw invalid_argument("The size of the matrices does not match!");
 }
 
 void __throw_if_matrices_rows_and_columns_does_not_match(const Matrix* a, const Matrix* b)
 {
 	if (b->GetRows() != a->GetCols())
-		throw std::invalid_argument("The rows and columns of the matrices does not match!");
+		throw invalid_argument("The rows and columns of the matrices does not match!");
 }
 
 void __throw_if_matrix_does_not_exist(float** matrix_array)
 {
 	if (!matrix_array)
-		throw std::invalid_argument("The matrix don't exist!");
+		throw invalid_argument("The matrix don't exist!");
 }
 void __throw_if_non_square_matrix(Matrix* m)
 {
 	if (m->GetRows() != m->GetCols())
-		throw std::invalid_argument(" The matrix is not square!");
+		throw invalid_argument(" The matrix is not square!");
 }
 #pragma endregion
 
