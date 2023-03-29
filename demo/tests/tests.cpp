@@ -54,7 +54,7 @@ TEST_CASE("Operator deff")
 	CHECK(true == (C == A - B));
 }
 
-TEST_CASE("Operator in-place")
+TEST_CASE("Operator 'in-place' += ")
 {
 	float value;
 	Matrix A(4, 4), B(4, 4), C(4, 4);
@@ -77,6 +77,71 @@ TEST_CASE("Operator in-place")
 			C.InputElementMatrix(value, i, j);
 		}
 	A += B;
+	CHECK(true == (C == A));
+}
+
+TEST_CASE("Operator 'in-place' -= ")
+{
+	float value;
+	Matrix A(4, 4), B(4, 4), C(4, 4);
+	for (UINT i = 0; i < A.GetRows(); i++)
+		for (UINT j = 0; j < A.GetCols(); j++)
+		{
+			value = 3;
+			A.InputElementMatrix(value, i, j);
+		}
+	for (UINT i = 0; i < B.GetRows(); i++)
+		for (UINT j = 0; j < B.GetCols(); j++)
+		{
+			value = 5;
+			B.InputElementMatrix(value, i, j);
+		}
+	for (UINT i = 0; i < C.GetRows(); i++)
+		for (UINT j = 0; j < C.GetCols(); j++)
+		{
+			value = -2;
+			C.InputElementMatrix(value, i, j);
+		}
+	A -= B;
+	CHECK(true == (C == A));
+}
+
+TEST_CASE("Operator 'in-place' *= ")
+{
+	Matrix A(3, 4), B(4, 2), C(3, 2);
+	for (UINT i = 0; i < A.GetRows(); i++)
+		for (UINT j = 0; j < A.GetCols(); j++)
+		{
+			A.InputElementMatrix(3, i, j);
+		}
+	for (UINT i = 0; i < B.GetRows(); i++)
+		for (UINT j = 0; j < B.GetCols(); j++)
+		{
+			B.InputElementMatrix(5, i, j);
+		}
+	for (UINT i = 0; i < C.GetRows(); i++)
+		for (UINT j = 0; j < C.GetCols(); j++)
+		{
+			C.InputElementMatrix(60, i, j);
+		}
+	A *= B;
+	CHECK(true == (C == A));
+}
+
+TEST_CASE("Operator 'in-place' *= (on the number)")
+{
+	Matrix A(3, 2), C(3, 2);
+	for (UINT i = 0; i < A.GetRows(); i++)
+		for (UINT j = 0; j < A.GetCols(); j++)
+		{
+			A.InputElementMatrix(4, i, j);
+		}
+	for (UINT i = 0; i < C.GetRows(); i++)
+		for (UINT j = 0; j < C.GetCols(); j++)
+		{
+			C.InputElementMatrix(16, i, j);
+		}
+	A *= 4;
 	CHECK(true == (C == A));
 }
 

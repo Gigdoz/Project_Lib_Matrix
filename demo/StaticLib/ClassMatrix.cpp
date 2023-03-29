@@ -110,13 +110,12 @@ Matrix Matrix::operator*(const Matrix &otherMatrix)
 	__throw_if_matrix_does_not_exist(otherMatrix.matrix);
 	__throw_if_matrices_rows_and_columns_does_not_match(this, &otherMatrix);
 	Matrix temp;
-	UINT k, j, i;
 	temp.SetSizeMatrix(rows, otherMatrix.cols);
-	for (k = 0; k < temp.rows; k++)
-		for (j = 0; j < temp.cols; j++)
+	for (UINT k = 0; k < temp.rows; k++)
+		for (UINT j = 0; j < temp.cols; j++)
 		{
 			temp.matrix[k][j] = 0;
-			for (i = 0; i < cols; i++)
+			for (UINT i = 0; i < cols; i++)
 				temp.matrix[k][j] += this->matrix[k][i] * otherMatrix.matrix[i][j];
 		}
 	return temp;
@@ -155,6 +154,47 @@ Matrix& Matrix::operator+=(const Matrix &otherMatrix)
 		for (UINT j = 0; j < this->cols; j++)
 		{
 			this->matrix[i][j] = this->matrix[i][j] + otherMatrix.matrix[i][j];
+		}
+	return *this;
+}
+
+Matrix& Matrix::operator-=(const Matrix &otherMatrix)
+{
+	__throw_if_matrix_does_not_exist(otherMatrix.matrix);
+	__throw_if_matrices_size_does_not_match(this, &otherMatrix);
+	for (UINT i = 0; i < this->rows; i++)
+		for (UINT j = 0; j < this->cols; j++)
+		{
+			this->matrix[i][j] = this->matrix[i][j] - otherMatrix.matrix[i][j];
+		}
+	return *this;
+}
+
+Matrix& Matrix::operator*=(const Matrix &otherMatrix)
+{
+	__throw_if_matrix_does_not_exist(otherMatrix.matrix);
+	__throw_if_matrices_rows_and_columns_does_not_match(this, &otherMatrix);
+	Matrix temp;
+	temp.SetSizeMatrix(this->rows, otherMatrix.cols);
+	for (UINT k = 0; k < temp.rows; k++)
+		for (UINT j = 0; j < temp.cols; j++)
+		{
+			temp.matrix[k][j] = 0;
+			for (UINT i = 0; i < this->cols; i++)
+				temp.matrix[k][j] += this->matrix[k][i] * otherMatrix.matrix[i][j];
+		}
+	this->SetSizeMatrix(temp.rows, temp.cols);
+	*this = temp;
+	return *this;
+}
+
+Matrix& Matrix::operator*=(float s)
+{
+	__throw_if_matrix_does_not_exist(this->matrix);
+	for (UINT i = 0; i < this->rows; i++)
+		for (UINT j = 0; j < this->cols; j++)
+		{
+			this->matrix[i][j] = s * this->matrix[i][j];
 		}
 	return *this;
 }

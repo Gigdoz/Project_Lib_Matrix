@@ -23,12 +23,15 @@ public:
 	float OutputElement(UINT row, UINT col); // The matrix element output 
 	void InputElementMatrix(float value, UINT row = 0, UINT col = 0); // The matrix element input
 	Matrix Transposition_Matrix(); // Transposition matrix
-	Matrix& operator=(const Matrix &otherMatrix);
 	Matrix operator+(const Matrix &otherMatrix);
 	Matrix operator-(const Matrix &otherMatrix);
 	Matrix operator*(const Matrix &otherMatrix);
 	Matrix operator*(float s);
-	Matrix& operator+=(const Matrix & otherMatrix);
+	Matrix& operator+=(const Matrix &otherMatrix);
+	Matrix& operator-=(const Matrix &otherMatrix);
+	Matrix& operator*=(const Matrix &otherMatrix);
+	Matrix& operator*=(float s);
+	Matrix& operator=(const Matrix &otherMatrix);
 	bool operator==(const Matrix &otherMatrix);
 	
 	~Matrix(); // destructor
