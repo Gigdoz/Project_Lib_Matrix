@@ -9,7 +9,7 @@ void __throw_if_out_of_range(Matrix* m, UINT row, UINT col)
 {
 	if (row >= m->GetRows() || col >= m->GetCols())
 	{
-		throw std::out_of_range("Out of range!");
+		throw out_of_range("Out of range!");
 	}
 }
 void __throw_if_matrices_size_does_not_match(const Matrix* a, const Matrix* b)
