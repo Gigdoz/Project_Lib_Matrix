@@ -166,7 +166,7 @@ TEST_CASE("Matrix transposition")
 	B.InputElementMatrix(3, 1, 0);
 	B.InputElementMatrix(4, 1, 1);
 	B.InputElementMatrix(0, 1, 2);
-	CHECK(true == (A.T() == B));
+	CHECK(true == (A.Transposition_Matrix() == B));
 }
 
 TEST_CASE("Determenant matrix")
