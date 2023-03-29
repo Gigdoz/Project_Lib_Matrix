@@ -1,4 +1,4 @@
-# Project Library for working with matrixs
+# Project Library for working with matrices
 
 Сборка проекта на C++ с использованием CMake и Catch2. 
 
