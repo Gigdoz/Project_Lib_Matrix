@@ -20,8 +20,8 @@ public:
 	void SetSizeMatrix(UINT rows, UINT cols);
 	UINT GetRows() const { return rows; }
 	UINT GetCols() const { return cols; }
-	float OutputElement(UINT row, UINT col); // The matrix element output 
-	void InputElementMatrix(float value, UINT row = 0, UINT col = 0); // The matrix element input
+	void operator()(float value, UINT row, UINT col); // The matrix element input
+	float operator()(UINT row, UINT col); // The matrix element output 
 	Matrix Transposition_Matrix(); // Transposition matrix
 	Matrix operator+(const Matrix &otherMatrix);
 	Matrix operator-(const Matrix &otherMatrix);

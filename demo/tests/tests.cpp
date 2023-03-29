@@ -12,19 +12,19 @@ TEST_CASE("Operator sum")
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
 			value = 1;
-			A.InputElementMatrix(value, i, j);
+			A(value, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
 			value = 2;
-			B.InputElementMatrix(value, i, j);
+			B(value, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
 			value = 3;
-			C.InputElementMatrix(value, i, j);
+			C(value, i, j);
 		}
 	CHECK(true == (C == A + B));
 }
@@ -37,19 +37,19 @@ TEST_CASE("Operator deff")
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
 			value = 3;
-			A.InputElementMatrix(value, i, j);
+			A(value, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
 			value = 5;
-			B.InputElementMatrix(value, i, j);
+			B(value, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
 			value = -2;
-			C.InputElementMatrix(value, i, j);
+			C(value, i, j);
 		}
 	CHECK(true == (C == A - B));
 }
@@ -62,19 +62,19 @@ TEST_CASE("Operator 'in-place' += ")
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
 			value = 3;
-			A.InputElementMatrix(value, i, j);
+			A(value, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
 			value = 5;
-			B.InputElementMatrix(value, i, j);
+			B(value, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
 			value = 8;
-			C.InputElementMatrix(value, i, j);
+			C(value, i, j);
 		}
 	A += B;
 	CHECK(true == (C == A));
@@ -88,19 +88,19 @@ TEST_CASE("Operator 'in-place' -= ")
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
 			value = 3;
-			A.InputElementMatrix(value, i, j);
+			A(value, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
 			value = 5;
-			B.InputElementMatrix(value, i, j);
+			B(value, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
 			value = -2;
-			C.InputElementMatrix(value, i, j);
+			C(value, i, j);
 		}
 	A -= B;
 	CHECK(true == (C == A));
@@ -112,17 +112,17 @@ TEST_CASE("Operator 'in-place' *= ")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(3, i, j);
+			A(3, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
-			B.InputElementMatrix(5, i, j);
+			B(5, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
-			C.InputElementMatrix(60, i, j);
+			C(60, i, j);
 		}
 	A *= B;
 	CHECK(true == (C == A));
@@ -134,12 +134,12 @@ TEST_CASE("Operator 'in-place' *= (on the number)")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(4, i, j);
+			A(4, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
-			C.InputElementMatrix(16, i, j);
+			C(16, i, j);
 		}
 	A *= 4;
 	CHECK(true == (C == A));
@@ -151,17 +151,17 @@ TEST_CASE("Operator multiplications")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(3, i, j);
+			A(3, i, j);
 		}
 	for (UINT i = 0; i < B.GetRows(); i++)
 		for (UINT j = 0; j < B.GetCols(); j++)
 		{
-			B.InputElementMatrix(5, i, j);
+			B(5, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
-			C.InputElementMatrix(60, i, j);
+			C(60, i, j);
 		}
 	CHECK(true == (C == A * B));
 }
@@ -172,17 +172,17 @@ TEST_CASE("Operator multiplications/ Matrix on vector")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(3, i, j);
+			A(3, i, j);
 		}
 	for (UINT i = 0; i < x.GetRows(); i++)
 		for (UINT j = 0; j < x.GetCols(); j++)
 		{
-			x.InputElementMatrix(5, i, j);
+			x(5, i, j);
 		}
 	for (UINT i = 0; i < y.GetRows(); i++)
 		for (UINT j = 0; j < y.GetCols(); j++)
 		{
-			y.InputElementMatrix(45, i, j);
+			y(45, i, j);
 		}
 	CHECK(true == (y == A * x));
 }
@@ -193,12 +193,12 @@ TEST_CASE("Operator multiplications on number")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(4, i, j);
+			A(4, i, j);
 		}
 	for (UINT i = 0; i < C.GetRows(); i++)
 		for (UINT j = 0; j < C.GetCols(); j++)
 		{
-			C.InputElementMatrix(16, i, j);
+			C(16, i, j);
 		}
 	CHECK(true == (C == A * 4));
 }
@@ -209,7 +209,7 @@ TEST_CASE("Operator assignment")
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
-			A.InputElementMatrix(10, i, j);
+			A(10, i, j);
 		}
 	C = A;
 	CHECK(true == (C == A));
@@ -218,33 +218,33 @@ TEST_CASE("Operator assignment")
 TEST_CASE("Matrix transposition")
 {
 	Matrix A(3, 2), B(2, 3);
-	A.InputElementMatrix(2, 0, 0);
-	A.InputElementMatrix(3, 0, 1);
-	A.InputElementMatrix(1, 1, 0);
-	A.InputElementMatrix(4, 1, 1);
-	A.InputElementMatrix(5, 2, 0);
-	A.InputElementMatrix(0, 2, 1);
+	A(2, 0, 0);
+	A(3, 0, 1);
+	A(1, 1, 0);
+	A(4, 1, 1);
+	A(5, 2, 0);
+	A(0, 2, 1);
 
-	B.InputElementMatrix(2, 0, 0);
-	B.InputElementMatrix(1, 0, 1);
-	B.InputElementMatrix(5, 0, 2);
-	B.InputElementMatrix(3, 1, 0);
-	B.InputElementMatrix(4, 1, 1);
-	B.InputElementMatrix(0, 1, 2);
+	B(2, 0, 0);
+	B(1, 0, 1);
+	B(5, 0, 2);
+	B(3, 1, 0);
+	B(4, 1, 1);
+	B(0, 1, 2);
 	CHECK(true == (A.Transposition_Matrix() == B));
 }
 
 TEST_CASE("Determenant matrix")
 {
 	Matrix A(3, 3);
-	A.InputElementMatrix(2, 0, 0);
-	A.InputElementMatrix(3, 0, 1);
-	A.InputElementMatrix(3, 0, 2);
-	A.InputElementMatrix(1, 1, 0);
-	A.InputElementMatrix(4, 1, 1);
-	A.InputElementMatrix(4, 1, 2);
-	A.InputElementMatrix(5, 2, 0);
-	A.InputElementMatrix(0, 2, 1);
-	A.InputElementMatrix(7, 2, 2);
+	A(2, 0, 0);
+	A(3, 0, 1);
+	A(3, 0, 2);
+	A(1, 1, 0);
+	A(4, 1, 1);
+	A(4, 1, 2);
+	A(5, 2, 0);
+	A(0, 2, 1);
+	A(7, 2, 2);
 	CHECK(Det(A) == 35);
 }

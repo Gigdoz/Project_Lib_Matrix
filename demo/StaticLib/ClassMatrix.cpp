@@ -63,13 +63,13 @@ void Matrix::SetSizeMatrix(UINT rows, UINT cols)
 			this->matrix[i][j] = NULL;
 }
 
-void Matrix::InputElementMatrix(float value, UINT row, UINT col)
+void Matrix::operator()(float value, UINT row, UINT col)
 {
 	__throw_if_out_of_range(this, row, col);
 	matrix[row][col] = value;
 }
 
-float Matrix::OutputElement(UINT row, UINT col)
+float Matrix::operator()(UINT row, UINT col)
 {
 	__throw_if_out_of_range(this, row, col);
 	return matrix[row][col];
