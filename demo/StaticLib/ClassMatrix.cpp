@@ -51,7 +51,7 @@ Matrix::~Matrix()
 	delete[] this->matrix;
 }
 
-void Matrix::SetSizeMatrix(const UINT rows, const UINT cols)
+void Matrix::SetSizeMatrix(UINT rows, UINT cols)
 {
 	this->rows = rows;
 	this->cols = cols;
@@ -63,13 +63,13 @@ void Matrix::SetSizeMatrix(const UINT rows, const UINT cols)
 			this->matrix[i][j] = NULL;
 }
 
-void Matrix::InputElementMatrix(const float value, UINT row, UINT col)
+void Matrix::InputElementMatrix(float value, UINT row, UINT col)
 {
 	__throw_if_out_of_range(this, row, col);
 	matrix[row][col] = value;
 }
 
-float Matrix::OutputElement(const UINT row, const UINT col)
+float Matrix::OutputElement(UINT row, UINT col)
 {
 	__throw_if_out_of_range(this, row, col);
 	return matrix[row][col];
