@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Matrixs::Matrixs(const Matrixs &otherMatrix) // Constructor copying
+Matrix::Matrix(const Matrix &otherMatrix) // Constructor copying
 {
 	this->SetSizeMatrix(otherMatrix.rows, otherMatrix.cols);
 	for (UINT i = 0; i < otherMatrix.rows; i++)
@@ -11,14 +11,14 @@ Matrixs::Matrixs(const Matrixs &otherMatrix) // Constructor copying
 			this->matrix[i][j] = otherMatrix.matrix[i][j];
 }
 
-Matrixs::~Matrixs()
+Matrix::~Matrix()
 {
 	for (UINT i = 0; i < this->rows; i++)
 		delete[] this->matrix[i];
 	delete[] this->matrix;
 }
 
-void Matrixs::SetSizeMatrix(const UINT rows, const UINT cols)
+void Matrix::SetSizeMatrix(const UINT rows, const UINT cols)
 {
 	this->rows = rows;
 	this->cols = cols;
@@ -30,7 +30,7 @@ void Matrixs::SetSizeMatrix(const UINT rows, const UINT cols)
 			this->matrix[i][j] = NULL;
 }
 
-void Matrixs::InputElementMatrix(const float value, UINT row, UINT col)
+void Matrix::InputElementMatrix(const float value, UINT row, UINT col)
 {
 	if (row < rows && col < cols)
 		 matrix[row][col] = value;
@@ -41,7 +41,7 @@ void Matrixs::InputElementMatrix(const float value, UINT row, UINT col)
 	}
 }
 
-float Matrixs::OutputElement(const UINT row, const UINT col)
+float Matrix::OutputElement(const UINT row, const UINT col)
 {
 	if (row < rows && col < cols)
 		return matrix[row][col];
@@ -52,13 +52,13 @@ float Matrixs::OutputElement(const UINT row, const UINT col)
 	}
 }
 
-Matrixs Matrixs::operator+(const Matrixs &otherMatrix)
+Matrix Matrix::operator+(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
 		if (this->rows == otherMatrix.rows && this->cols == otherMatrix.cols)
 		{
-			Matrixs temp;
+			Matrix temp;
 			temp.SetSizeMatrix(otherMatrix.rows, otherMatrix.cols);
 			for (UINT i = 0; i < temp.rows; i++)
 				for (UINT j = 0; j < temp.cols; j++)
@@ -81,13 +81,13 @@ Matrixs Matrixs::operator+(const Matrixs &otherMatrix)
 	}
 }
 
-Matrixs Matrixs::operator-(const Matrixs &otherMatrix)
+Matrix Matrix::operator-(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
 		if (this->rows == otherMatrix.rows && this->cols == otherMatrix.cols)
 		{
-			Matrixs temp;
+			Matrix temp;
 			temp.SetSizeMatrix(otherMatrix.rows, otherMatrix.cols);
 			for (UINT i = 0; i < temp.rows; i++)
 				for (UINT j = 0; j < temp.cols; j++)
@@ -111,14 +111,14 @@ Matrixs Matrixs::operator-(const Matrixs &otherMatrix)
 	
 }
 
-Matrixs Matrixs::operator*(const Matrixs &otherMatrix)
+Matrix Matrix::operator*(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
 		
 		if (this->cols == otherMatrix.rows)
 		{
-			Matrixs temp;
+			Matrix temp;
 			UINT k, j, i;
 			temp.SetSizeMatrix(rows, otherMatrix.cols);
 			for (k = 0; k < temp.rows; k++)
@@ -143,11 +143,11 @@ Matrixs Matrixs::operator*(const Matrixs &otherMatrix)
 	}
 }
 
-Matrixs Matrixs::operator*(float s)
+Matrix Matrix::operator*(float s)
 {
 	if (this->matrix)
 	{
-		Matrixs temp;
+		Matrix temp;
 		temp.SetSizeMatrix(rows, cols);
 		for (UINT i = 0; i < temp.rows; i++)
 			for (UINT j = 0; j < temp.cols; j++)
@@ -163,7 +163,7 @@ Matrixs Matrixs::operator*(float s)
 	}
 }
 
-Matrixs& Matrixs::operator=(const Matrixs &otherMatrix)
+Matrix& Matrix::operator=(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
@@ -182,7 +182,7 @@ Matrixs& Matrixs::operator=(const Matrixs &otherMatrix)
 	}
 }
 
-Matrixs& Matrixs::operator+=(const Matrixs &otherMatrix)
+Matrix& Matrix::operator+=(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
@@ -209,7 +209,7 @@ Matrixs& Matrixs::operator+=(const Matrixs &otherMatrix)
 	}
 }
 
-bool Matrixs::operator==(const Matrixs &otherMatrix)
+bool Matrix::operator==(const Matrix &otherMatrix)
 {
 	if (otherMatrix.matrix)
 	{
@@ -236,18 +236,18 @@ bool Matrixs::operator==(const Matrixs &otherMatrix)
 	}
 }
 
-Matrixs Matrixs::T()
+Matrix Matrix::Transposition_Matrix()
 {
 	
 	if (matrix)
 	{
-		Matrixs NewMatrix(cols, rows);
+		Matrix NewMatrix(cols, rows);
 		for (UINT i = 0; i < rows; i++)
 			for (UINT j = 0; j < cols; j++)
 			{
 				NewMatrix.matrix[j][i] = matrix[i][j];
 			}
-		Matrixs temp(cols, rows);
+		Matrix temp(cols, rows);
 		for (UINT i = 0; i < rows; i++)
 			for (UINT j = 0; j < cols; j++)
 			{
@@ -268,11 +268,11 @@ Matrixs Matrixs::T()
 	}
 }
 
-void getMatrixMinor(Matrixs& Matrix, UINT row, UINT col, Matrixs &NewMatrix)
+void getMatrixMinor(Matrix &other, UINT row, UINT col, Matrix &NewMatrix)
 {
 	UINT offsetRow = 0;
 	UINT offsetCol = 0;
-	for (UINT i = 0; i < Matrix.rows - 1; i++) {
+	for (UINT i = 0; i < other.rows - 1; i++) {
 
 		if (i == row)
 		{
@@ -280,68 +280,34 @@ void getMatrixMinor(Matrixs& Matrix, UINT row, UINT col, Matrixs &NewMatrix)
 		}
 
 		offsetCol = 0;
-		for (UINT j = 0; j < Matrix.rows - 1; j++)
+		for (UINT j = 0; j < other.rows - 1; j++)
 		{
 			if (j == col)
 			{
 				offsetCol = 1;
 			}
-			NewMatrix.matrix[i][j] = Matrix.matrix[i + offsetRow][j + offsetCol];
+			NewMatrix.matrix[i][j] = other.matrix[i + offsetRow][j + offsetCol];
 		}
 	}
 }
 
-float Det(Matrixs &Matrix) {
-	if (Matrix.rows == Matrix.cols)
+float Det(Matrix &other) {
+	if (other.rows == other.cols)
 	{
 		int det = 0;
-		if (Matrix.rows == 1) return Matrix.matrix[0][0];
-		if (Matrix.rows == 2) return Matrix.matrix[0][0] * Matrix.matrix[1][1] - Matrix.matrix[0][1] * Matrix.matrix[1][0];
+		if (other.rows == 1) return other.matrix[0][0];
+		if (other.rows == 2) return other.matrix[0][0] * other.matrix[1][1] - other.matrix[0][1] * other.matrix[1][0];
 		else
 		{
-			Matrixs NewMatrix;
-			NewMatrix.SetSizeMatrix(Matrix.rows - 1, Matrix.rows - 1);
-			for (UINT j = 0; j < Matrix.rows; j++)
+			Matrix NewMatrix;
+			NewMatrix.SetSizeMatrix(other.rows - 1, other.rows - 1);
+			for (UINT j = 0; j < other.rows; j++)
 			{
-				getMatrixMinor(Matrix, 0, j, NewMatrix);
-				det += pow(-1, j) * Matrix.matrix[0][j] * Det(NewMatrix);
+				getMatrixMinor(other, 0, j, NewMatrix);
+				det += pow(-1, j) * other.matrix[0][j] * Det(NewMatrix);
 			}
 		}
 		return det;
-	}
-	else
-	{
-		cout << " The matrix is not square!";
-		throw 1;
-	}
-}
-
-Matrixs ReverseMatrix(Matrixs &Matrix) {
-	if (Matrix.rows == Matrix.cols)
-	{
-		float detMatrix = Det(Matrix);
-		if (detMatrix != 0)
-		{
-			UINT size = Matrix.rows;
-			// create new matrix about size diff one
-			Matrixs NewMatrix;
-			NewMatrix.SetSizeMatrix(size - 1, size - 1);
-			Matrixs ReverseMatrix;
-			ReverseMatrix.SetSizeMatrix(size, size);
-			for (UINT row = 0; row < size; row++)
-				for (UINT col = 0; col < size; col++)
-				{
-					getMatrixMinor(Matrix, row, col, NewMatrix);
-					ReverseMatrix.matrix[row][col] = (pow(-1, row + col) * (1 / detMatrix) * Det(NewMatrix));
-				}
-
-			return ReverseMatrix.T();
-		}
-		else
-		{
-			cout << " Determenant matrix equal to zero!";
-			throw 1;
-		}
 	}
 	else
 	{

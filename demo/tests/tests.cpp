@@ -7,7 +7,7 @@ TEST_CASE("Operator sum")
 {
 
 	float value;
-	Matrixs A(3, 4), B(3, 4), C(3, 4);
+	Matrix A(3, 4), B(3, 4), C(3, 4);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -32,7 +32,7 @@ TEST_CASE("Operator sum")
 TEST_CASE("Operator deff")
 {
 	float value;
-	Matrixs A(3, 2), B(3, 2), C(3, 2);
+	Matrix A(3, 2), B(3, 2), C(3, 2);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -57,7 +57,7 @@ TEST_CASE("Operator deff")
 TEST_CASE("Operator in-place")
 {
 	float value;
-	Matrixs A(4, 4), B(4, 4), C(4, 4);
+	Matrix A(4, 4), B(4, 4), C(4, 4);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -82,7 +82,7 @@ TEST_CASE("Operator in-place")
 
 TEST_CASE("Operator multiplications")
 {
-	Matrixs A(3, 4), B(4, 2), C(3, 2);
+	Matrix A(3, 4), B(4, 2), C(3, 2);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -103,7 +103,7 @@ TEST_CASE("Operator multiplications")
 
 TEST_CASE("Operator multiplications/ Matrix on vector")
 {
-	Matrixs A(3, 3), x(3, 1), y(3, 1);
+	Matrix A(3, 3), x(3, 1), y(3, 1);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -124,7 +124,7 @@ TEST_CASE("Operator multiplications/ Matrix on vector")
 
 TEST_CASE("Operator multiplications on number")
 {
-	Matrixs A(3, 2), C(3, 2);
+	Matrix A(3, 2), C(3, 2);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -140,7 +140,7 @@ TEST_CASE("Operator multiplications on number")
 
 TEST_CASE("Operator assignment")
 {
-	Matrixs A(4, 3), C;
+	Matrix A(4, 3), C;
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
 		{
@@ -152,7 +152,7 @@ TEST_CASE("Operator assignment")
 
 TEST_CASE("Matrix transposition")
 {
-	Matrixs A(3, 2), B(2, 3);
+	Matrix A(3, 2), B(2, 3);
 	A.InputElementMatrix(2, 0, 0);
 	A.InputElementMatrix(3, 0, 1);
 	A.InputElementMatrix(1, 1, 0);
@@ -169,34 +169,9 @@ TEST_CASE("Matrix transposition")
 	CHECK(true == (A.T() == B));
 }
 
-TEST_CASE("Revers matrix")
-{
-	Matrixs A(3,3), B(3, 3);
-	A.InputElementMatrix(2, 0, 0);
-	A.InputElementMatrix(3, 0, 1);
-	A.InputElementMatrix(3, 0, 2);
-	A.InputElementMatrix(1, 1, 0);
-	A.InputElementMatrix(4, 1, 1);
-	A.InputElementMatrix(4, 1, 2);
-	A.InputElementMatrix(5, 2, 0);
-	A.InputElementMatrix(0, 2, 1);
-	A.InputElementMatrix(7, 2, 2);
-
-	B.InputElementMatrix(1, 0, 0);
-	B.InputElementMatrix(0, 0, 1);
-	B.InputElementMatrix(0, 0, 2);
-	B.InputElementMatrix(0, 1, 0);
-	B.InputElementMatrix(1, 1, 1);
-	B.InputElementMatrix(0, 1, 2);
-	B.InputElementMatrix(0, 2, 0);
-	B.InputElementMatrix(0, 2, 1);
-	B.InputElementMatrix(1, 2, 2);
-	CHECK(true == (B == A * ReverseMatrix(A)));
-}
-
 TEST_CASE("Determenant matrix")
 {
-	Matrixs A(3, 3);
+	Matrix A(3, 3);
 	A.InputElementMatrix(2, 0, 0);
 	A.InputElementMatrix(3, 0, 1);
 	A.InputElementMatrix(3, 0, 2);
@@ -207,28 +182,4 @@ TEST_CASE("Determenant matrix")
 	A.InputElementMatrix(0, 2, 1);
 	A.InputElementMatrix(7, 2, 2);
 	CHECK(Det(A) == 35);
-}
-
-TEST_CASE("Solving the matrix equation")
-{
-	Matrixs A(3, 3), b(3, 1), x, y(3, 1);
-	A.InputElementMatrix(2, 0, 0);
-	A.InputElementMatrix(3, 0, 1);
-	A.InputElementMatrix(3, 0, 2);
-	A.InputElementMatrix(1, 1, 0);
-	A.InputElementMatrix(4, 1, 1);
-	A.InputElementMatrix(4, 1, 2);
-	A.InputElementMatrix(5, 2, 0);
-	A.InputElementMatrix(0, 2, 1);
-	A.InputElementMatrix(7, 2, 2);
-
-	b.InputElementMatrix(6, 0, 0);
-	b.InputElementMatrix(0, 1, 0);
-	b.InputElementMatrix(9, 2, 0);
-
-	y.InputElementMatrix(4.8, 0, 0);
-	y.InputElementMatrix(0.94286, 1, 0);
-	y.InputElementMatrix(-2.142857, 2, 0);
-	x = ReverseMatrix(A) * b;
-	CHECK(true == (y == x));
 }
