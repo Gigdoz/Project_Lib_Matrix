@@ -141,28 +141,21 @@ Matrix& Matrix::operator=(const Matrix &other)
 
 Matrix& Matrix::operator+=(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
-	__throw_if_matrices_size_does_not_match(this, &other);
 	return *this = *this + other;
 }
 
 Matrix& Matrix::operator-=(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
-	__throw_if_matrices_size_does_not_match(this, &other);
 	return *this = *this - other;
 }
 
 Matrix& Matrix::operator*=(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
-	__throw_if_matrices_rows_and_columns_does_not_match(this, &other);
 	return *this = *this * other;
 }
 
 Matrix& Matrix::operator*=(float s)
 {
-	__throw_if_matrix_does_not_exist(this->matrix);
 	return *this = *this * s;
 }
 
