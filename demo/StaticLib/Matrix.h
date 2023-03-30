@@ -21,7 +21,7 @@ public:
 	void getMatrixMinor(UINT row, UINT col, Matrix &NewMatrix);
 	float& operator()(UINT row, UINT col); // The matrix element input
 	float operator()(UINT row, UINT col) const; // The matrix element output 
-	Matrix Transposed_matrix(); // Transposition matrix
+	Matrix Transposed_matrix(); // Transpose of a matrix
 	Matrix operator+(const Matrix &otherMatrix);
 	Matrix operator-(const Matrix &otherMatrix);
 	Matrix operator*(const Matrix &otherMatrix);
