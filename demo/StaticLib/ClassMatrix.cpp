@@ -24,11 +24,6 @@ void __throw_if_matrices_rows_and_columns_does_not_match(const Matrix* a, const 
 		throw invalid_argument("The rows and columns of the matrices does not match!");
 }
 
-void __throw_if_matrix_does_not_exist(float** matrix_array)
-{
-	if (!matrix_array)
-		throw invalid_argument("The matrix don't exist!");
-}
 void __throw_if_non_square_matrix(const Matrix* m)
 {
 	if (m->GetRows() != m->GetCols())
@@ -78,7 +73,6 @@ float Matrix::operator()(UINT row, UINT col) const
 
 Matrix Matrix::operator+(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
 	__throw_if_matrices_size_does_not_match(this, &other);
 	Matrix temp(other.rows, other.cols);
 	for (UINT i = 0; i < temp.rows; i++)
@@ -91,7 +85,6 @@ Matrix Matrix::operator+(const Matrix &other)
 
 Matrix Matrix::operator-(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
 	__throw_if_matrices_size_does_not_match(this, &other);
 	Matrix temp(other.rows, other.cols);
 	for (UINT i = 0; i < temp.rows; i++)
@@ -104,7 +97,6 @@ Matrix Matrix::operator-(const Matrix &other)
 
 Matrix Matrix::operator*(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
 	__throw_if_matrices_rows_and_columns_does_not_match(this, &other);
 	Matrix temp(rows, other.cols);
 	for (UINT k = 0; k < temp.rows; k++)
@@ -119,7 +111,6 @@ Matrix Matrix::operator*(const Matrix &other)
 
 Matrix Matrix::operator*(float s)
 {
-	__throw_if_matrix_does_not_exist(this->matrix);
 	Matrix temp(rows, cols);
 	for (UINT i = 0; i < temp.rows; i++)
 		for (UINT j = 0; j < temp.cols; j++)
@@ -131,7 +122,7 @@ Matrix Matrix::operator*(float s)
 
 Matrix& Matrix::operator=(const Matrix &other)
 {
-	__throw_if_matrix_does_not_exist(other.matrix);
+
 	this->SetSizeMatrix(other.rows, other.cols);
 	for (UINT i = 0; i < other.rows; i++)
 		for (UINT j = 0; j < other.cols; j++)
@@ -161,7 +152,7 @@ Matrix& Matrix::operator*=(float s)
 
 bool Matrix::operator==(const Matrix &otherMatrix)
 {
-	__throw_if_matrix_does_not_exist(otherMatrix.matrix);
+
 	__throw_if_matrices_size_does_not_match(this, &otherMatrix);
 	for (UINT i = 0; i < this->rows; i++)
 		for (UINT j = 0; j < this->cols; j++)
