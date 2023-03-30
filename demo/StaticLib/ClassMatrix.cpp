@@ -61,8 +61,7 @@ void Matrix::SetSizeMatrix(UINT rows, UINT cols)
 float& Matrix::operator()(UINT row, UINT col)
 {
 	__throw_if_out_of_range(this, row, col);
-	float *pm = &this->matrix[row][col];
-	return *pm;
+	return matrix[row][col];
 }
 
 float Matrix::operator()(UINT row, UINT col) const

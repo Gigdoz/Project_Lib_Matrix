@@ -6,7 +6,6 @@
 TEST_CASE("Operator sum")
 {
 
-	float value;
 	Matrix A(3, 4), B(3, 4), C(3, 4);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
@@ -28,7 +27,6 @@ TEST_CASE("Operator sum")
 
 TEST_CASE("Operator deff")
 {
-	float value;
 	Matrix A(3, 2), B(3, 2), C(3, 2);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
@@ -50,7 +48,6 @@ TEST_CASE("Operator deff")
 
 TEST_CASE("Operator 'in-place' += ")
 {
-	float value;
 	Matrix A(4, 4), B(4, 4), C(4, 4);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT j = 0; j < A.GetCols(); j++)
@@ -73,7 +70,6 @@ TEST_CASE("Operator 'in-place' += ")
 
 TEST_CASE("Operator 'in-place' -= ")
 {
-	float value;
 	Matrix A(4, 4), B(4, 4), C(4, 4);
 	for (UINT i = 0; i < A.GetRows(); i++)
 		for (UINT i = 0; i < A.GetRows(); i++)
