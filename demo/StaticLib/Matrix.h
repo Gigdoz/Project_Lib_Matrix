@@ -31,6 +31,6 @@ public:
 	Matrix& operator*=(float);
 	Matrix& operator=(Matrix& other);
 	bool operator==(const Matrix& other);
-	void print() const;
+	void print();
 
 };

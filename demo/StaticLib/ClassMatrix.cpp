@@ -228,11 +228,11 @@ const float Matrix::Det()
 	return det;
 }
 
-void Matrix::print() const
+void Matrix::print()
 {
 	cout << "Matrix: " << endl;
-	for (UINT col = 0; col < cols; col++) {
-		for (UINT row = 0; row < rows; row++)
+	for (UINT row = 0; row < rows; row++) {
+		for (UINT col = 0; col < cols; col++)
 			cout << "[" << matrix[rows * col + row] << "] ";
 		cout << endl;
 	}
