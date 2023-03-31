@@ -4,35 +4,33 @@
 #include <vector>
 
 typedef unsigned int UINT;
-using namespace std;
 
 class Matrix
 {
 private:
-	vector<vector<float> > matrix;
+	std::vector<float> matrix;
 	UINT rows, cols;
 public:
-	Matrix(); // Default Constructor
-	Matrix(UINT, UINT); // Constructor
-	Matrix(const Matrix&); // Constructor copying
+	Matrix();
+	Matrix(UINT row, UINT col);
+	Matrix(const Matrix &other);
 	UINT GetRows() const;
 	UINT GetCols() const;
 	const float Det();
-	void getMatrixMinor(UINT, UINT, Matrix&);
-	float& operator()(UINT, UINT); // The matrix element input
-	float operator()(UINT, UINT) const; // The matrix element output 
-	Matrix Transposed_matrix(); // Transpose of a matrix
-	// Matrix Operations
-	Matrix operator+(Matrix&);
-	Matrix operator-(Matrix&);
-	Matrix operator*(Matrix&);
+	void getMatrixMinor(UINT row, UINT col, Matrix &other);
+	float& operator()(UINT row, UINT col); // The matrix element input
+	float operator()(UINT row, UINT col) const; // The matrix element output 
+	Matrix Transposed_matrix();
+	Matrix operator+(Matrix& other);
+	Matrix operator-(Matrix& other);
+	Matrix operator*(Matrix& other);
 	Matrix operator*(float);
-	Matrix& operator+=(Matrix&);
-	Matrix& operator-=(Matrix&);
-	Matrix& operator*=(Matrix&);
+	Matrix& operator+=(Matrix& other);
+	Matrix& operator-=(Matrix& other);
+	Matrix& operator*=(Matrix& other);
 	Matrix& operator*=(float);
-	Matrix& operator=(Matrix&);
-	bool operator==(const Matrix&);
+	Matrix& operator=(Matrix& other);
+	bool operator==(const Matrix& other);
 	void print() const;
 
 };
