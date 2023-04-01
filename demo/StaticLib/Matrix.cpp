@@ -189,28 +189,28 @@ Matrix Matrix::Transposed_matrix()
 	return Transpose;
 }
 
-void Matrix::getMatrixMinor(UINT row, UINT col, Matrix& NewMatrix)
+void getMatrixMinor(Matrix &matrix, UINT row, UINT col, Matrix &NewMatrix)
 {
 	UINT offsetRow = 0;
 	UINT offsetCol = 0;
-	for (UINT i = 0; i < this->rows - 1; i++) {
+	for (UINT i = 0; i < matrix.GetRows() - 1; i++) {
 		if (i == row)
 		{
 			offsetRow = 1;
 		}
 		offsetCol = 0;
-		for (UINT j = 0; j < this->rows - 1; j++)
+		for (UINT j = 0; j < matrix.GetRows() - 1; j++)
 		{
 			if (j == col)
 			{
 				offsetCol = 1;
 			}
-			NewMatrix(i, j) = this->matrix[rows * (j + offsetCol) + (i + offsetRow)];
+			NewMatrix(i, j) = matrix(i + offsetRow, j + offsetCol);
 		}
 	}
 }
 
-const float Matrix::Det()
+float Matrix::Det()
 {
 	__throw_if_non_square_matrix(this);
 	int det = 0;
@@ -221,7 +221,7 @@ const float Matrix::Det()
 		Matrix NewMatrix(rows - 1, rows - 1);
 		for (UINT row = 0; row < rows; row++)
 		{
-			this->getMatrixMinor(0, row, NewMatrix);
+			getMatrixMinor(*this, 0, row, NewMatrix);
 			det += pow(-1, row) * matrix[rows * row] * NewMatrix.Det();
 		}
 	}
