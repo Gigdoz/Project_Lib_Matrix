@@ -258,7 +258,7 @@ TEST_CASE("Matrix transposition")
 	B(1, 0) = 3;
 	B(1, 1) = 4;
 	B(1, 2) = 0;
-	CHECK(true == (A.Transposed_matrix() == B));
+	CHECK(true == (A.TransposedMatrix() == B));
 }
 
 TEST_CASE("Determenant matrix")

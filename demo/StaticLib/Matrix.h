@@ -16,19 +16,19 @@ public:
 	Matrix(const Matrix &other);
 	UINT GetRows() const;
 	UINT GetCols() const;
-	float Det();
+	float Det() const;
 	float& operator()(UINT row, UINT col); // The matrix element input
 	float operator()(UINT row, UINT col) const; // The matrix element output 
-	Matrix Transposed_matrix();
-	Matrix operator+(Matrix& other);
-	Matrix operator-(Matrix& other);
-	Matrix operator*(Matrix& other);
+	Matrix TransposedMatrix();
+	Matrix operator+(const Matrix& other);
+	Matrix operator-(const Matrix& other);
+	Matrix operator*(const Matrix& other);
 	Matrix operator*(float);
-	Matrix& operator+=(Matrix& other);
-	Matrix& operator-=(Matrix& other);
-	Matrix& operator*=(Matrix& other);
+	Matrix& operator+=(const Matrix& other);
+	Matrix& operator-=(const Matrix& other);
+	Matrix& operator*=(const Matrix& other);
 	Matrix& operator*=(float);
-	Matrix& operator=(Matrix& other);
+	Matrix& operator=(const Matrix& other);
 	bool operator==(const Matrix& other);
 	void print();
 
