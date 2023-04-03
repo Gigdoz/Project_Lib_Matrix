@@ -11,6 +11,7 @@ namespace {
 			throw out_of_range("Out of range!");
 		}
 	}
+
 	void __throw_if_matrices_size_does_not_match(const Matrix& a, const Matrix& b)
 	{
 		if (a.GetRows() != b.GetRows() || a.GetCols() != b.GetCols())
@@ -30,13 +31,13 @@ namespace {
 	}
 }
 
-Matrix::Matrix() {
-	this->rows = 1;
-	this->cols = 1;
-	this->matrix.resize(rows*cols, 0.0);
+Matrix::Matrix() 
+{
+	this->matrix = { 0.0 };
 }
 
-Matrix::Matrix(UINT rows, UINT cols) {
+Matrix::Matrix(UINT rows, UINT cols)
+{
 	this->rows = rows;
 	this->cols = cols;
 	this->matrix.resize(this->rows * this->cols, 0.0);
@@ -154,13 +155,14 @@ Matrix& Matrix::operator*=(float s)
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix& otherMatrix)
+bool Matrix::operator==(const Matrix& other)
 {
-	__throw_if_matrices_size_does_not_match(*this, otherMatrix);
+	if (this->GetRows() != other.GetRows() || this->GetCols() != other.GetCols())
+		return false;
 	for (UINT i = 0; i < this->rows; i++)
 		for (UINT j = 0; j < this->cols; j++)
 		{
-			if (this->matrix[rows * j + i] != otherMatrix.matrix[otherMatrix.rows * j + i]) return false;
+			if (this->matrix[rows * j + i] != other.matrix[other.rows * j + i]) return false;
 		}
 	return true;
 }
@@ -171,47 +173,35 @@ Matrix Matrix::TransposedMatrix()
 	for (UINT i = 0; i < cols; i++)
 	{
 		for (UINT j = 0; j < rows; j++) {
-			Transpose(i, j) = this->matrix[rows * i + j];
+			Transpose.matrix[Transpose.rows * j + i] = this->matrix[rows * i + j];
 		}
 	}
 	return Transpose;
 }
 
-void getMatrixMinor(const Matrix &matrix, UINT row, UINT col, Matrix &NewMatrix)
-{
-	UINT offsetRow = 0;
-	UINT offsetCol = 0;
-	for (UINT i = 0; i < matrix.GetRows() - 1; i++) {
-		if (i == row)
-		{
-			offsetRow = 1;
-		}
-		offsetCol = 0;
-		for (UINT j = 0; j < matrix.GetRows() - 1; j++)
-		{
-			if (j == col)
-			{
-				offsetCol = 1;
-			}
-			NewMatrix(i, j) = matrix(i + offsetRow, j + offsetCol);
-		}
-	}
-}
-
 float Matrix::Det() const
 {
 	__throw_if_non_square_matrix(*this);
-	int det = 0;
+	float det = 1.0, q, q0;
+	Matrix result(*this);
 	if (rows == 1) return matrix[0];
 	if (rows == 2) return matrix[0] * matrix[3] - matrix[2] * matrix[1];
 	else
 	{
-		Matrix NewMatrix(rows - 1, rows - 1);
-		for (UINT row = 0; row < rows; row++)
+		for (UINT k = 0; k < rows; k++)
 		{
-			getMatrixMinor(*this, 0, row, NewMatrix);
-			det += pow(-1, row) * matrix[rows * row] * NewMatrix.Det();
+			q0 = result.matrix[rows * k + k];;
+			for (UINT i = k + 1; i < rows; i++)
+			{
+				q = result.matrix[rows * k + i];
+				for (UINT j = k; j < rows; j++)
+				{
+					result.matrix[rows * j + i] = result.matrix[rows * j + i] - result.matrix[rows * j + k] / q0 * q;
+				}
+			}
 		}
+		for (UINT i = 0; i < rows; i++)
+			det *= result.matrix[rows * i + i];
 	}
 	return det;
 }
