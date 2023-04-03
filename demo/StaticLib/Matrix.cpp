@@ -31,24 +31,11 @@ namespace {
 	}
 }
 
-Matrix::Matrix() 
-{
-	this->matrix = { 0.0 };
-}
-
 Matrix::Matrix(UINT rows, UINT cols)
 {
 	this->rows = rows;
 	this->cols = cols;
 	this->matrix.resize(this->rows * this->cols, 0.0);
-}
-
-Matrix::Matrix(const Matrix& other)
-{
-	this->cols = other.GetCols();
-	this->rows = other.GetRows();
-	this->matrix = other.matrix;
-
 }
 
 UINT Matrix::GetRows() const
@@ -180,7 +167,7 @@ Matrix Matrix::transposedMatrix()
 	return Transpose;
 }
 
-void Matrix::print()
+void Matrix::ToString()
 {
 	cout << "Matrix: " << endl;
 	for (UINT row = 0; row < rows; row++)

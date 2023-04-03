@@ -11,9 +11,9 @@ private:
 	std::vector<float> matrix;
 	UINT rows, cols;
 public:
-	Matrix();
-	Matrix(UINT row, UINT col);
-	Matrix(const Matrix &other);
+	Matrix() : matrix(0), rows(0), cols(0) {}
+	Matrix(std::vector<float> matrix, UINT rows, UINT cols) : matrix(matrix), rows(rows), cols(cols) {}
+	Matrix(UINT rows, UINT cols);
 	UINT GetRows() const;
 	UINT GetCols() const;
 	Matrix transposedMatrix();
@@ -29,6 +29,6 @@ public:
 	Matrix& operator*=(float);
 	Matrix& operator=(const Matrix& other);
 	bool operator==(const Matrix& other) const;
-	void print();
+	void ToString();
 
 };

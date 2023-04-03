@@ -5,7 +5,7 @@
 
 TEST_CASE("Operator sum/Operator 'in-place' +=")
 {
-	Matrix A(3, 2), B(3, 2), C(3, 2), f;
+	Matrix A(3, 2), B(3, 2), C(3, 2);
 	A(0, 0) = 2;
 	A(0, 1) = 3;
 	A(1, 0) = 1;
