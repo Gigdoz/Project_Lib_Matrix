@@ -4,7 +4,7 @@
 using namespace std;
 
 namespace {
-	void __throw_if_out_of_range(const Matrix& other, UINT row, UINT col)
+	void throwIfOutOfRange(const Matrix& other, UINT row, UINT col)
 	{
 		if (row >= other.GetRows() || col >= other.GetCols())
 		{
@@ -12,19 +12,19 @@ namespace {
 		}
 	}
 
-	void __throw_if_matrices_size_does_not_match(const Matrix& a, const Matrix& b)
+	void throwIfMatricesSizeDoesNotMatch(const Matrix& a, const Matrix& b)
 	{
 		if (a.GetRows() != b.GetRows() || a.GetCols() != b.GetCols())
 			throw invalid_argument("The size of the matrices does not match!");
 	}
 
-	void __throw_if_matrices_rows_and_columns_does_not_match(const Matrix& a, const Matrix& b)
+	void throwIfMatricesRowsAndColumnsDoesNotMatch(const Matrix& a, const Matrix& b)
 	{
 		if (b.GetRows() != a.GetCols())
 			throw invalid_argument("The rows and columns of the matrices does not match!");
 	}
 
-	void __throw_if_non_square_matrix(const Matrix& other)
+	void throwIfNonSquareMatrix(const Matrix& other)
 	{
 		if (other.GetRows() != other.GetCols())
 			throw invalid_argument(" The matrix is not square!");
@@ -63,13 +63,13 @@ UINT Matrix::GetCols() const
 
 float& Matrix::operator()(UINT row, UINT col)
 {
-	__throw_if_out_of_range(*this, row, col);
+	throwIfOutOfRange(*this, row, col);
 	return this->matrix[rows * col + row];
 }
 
 float Matrix::operator()(UINT row, UINT col) const
 {
-	__throw_if_out_of_range(*this, row, col);
+	throwIfOutOfRange(*this, row, col);
 	return this->matrix[rows * col + row];
 }
 
@@ -87,7 +87,7 @@ Matrix Matrix::operator-(const Matrix& other)
 
 Matrix Matrix::operator*(const Matrix& other)
 {
-	__throw_if_matrices_rows_and_columns_does_not_match(*this, other);
+	throwIfMatricesRowsAndColumnsDoesNotMatch(*this, other);
 	Matrix multip(this->rows, other.GetCols());
 	for (UINT i = 0; i < this->rows; i++)
 	{
@@ -118,7 +118,7 @@ Matrix& Matrix::operator=(const Matrix& other)
 
 Matrix& Matrix::operator+=(const Matrix& other)
 {
-	__throw_if_matrices_size_does_not_match(*this, other);
+	throwIfMatricesSizeDoesNotMatch(*this, other);
 	for (UINT row = 0; row < this->rows; row++)
 	{
 		for (UINT col = 0; col < this->cols; col++)
@@ -131,7 +131,7 @@ Matrix& Matrix::operator+=(const Matrix& other)
 
 Matrix& Matrix::operator-=(const Matrix& other)
 {
-	__throw_if_matrices_size_does_not_match(*this, other);
+	throwIfMatricesSizeDoesNotMatch(*this, other);
 	for (UINT row = 0; row < this->rows; row++)
 	{
 		for (UINT col = 0; col < this->cols; col++)
@@ -167,7 +167,7 @@ bool Matrix::operator==(const Matrix& other) const
 	return true;
 }
 
-Matrix Matrix::TransposedMatrix()
+Matrix Matrix::transposedMatrix()
 {
 	Matrix Transpose(cols, rows);
 	for (UINT i = 0; i < cols; i++)
@@ -179,9 +179,9 @@ Matrix Matrix::TransposedMatrix()
 	return Transpose;
 }
 
-float Matrix::Det() const
+float Matrix::det() const
 {
-	__throw_if_non_square_matrix(*this);
+	throwIfNonSquareMatrix(*this);
 	for (UINT k = 0; k < rows; k++)
 	{
 		if (matrix[rows * k + k] == 0)
@@ -189,10 +189,6 @@ float Matrix::Det() const
 	}
 	float det = 1.0, q, q0;
 	Matrix result(*this);
-	if (rows == 1) return matrix[0];
-	if (rows == 2) return matrix[0] * matrix[3] - matrix[2] * matrix[1];
-	else
-	{
 		for (UINT k = 0; k < rows; k++)
 		{
 			q0 = result.matrix[rows * k + k];
@@ -211,7 +207,6 @@ float Matrix::Det() const
 		}
 		for (UINT i = 0; i < rows; i++)
 			det *= result.matrix[rows * i + i];
-	}
 	return det;
 }
 

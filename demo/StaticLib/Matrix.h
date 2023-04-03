@@ -16,9 +16,8 @@ public:
 	Matrix(const Matrix &other);
 	UINT GetRows() const;
 	UINT GetCols() const;
-	float Det() const;
-	void swap(UINT row1, UINT row2);
-	Matrix TransposedMatrix();
+	float det() const;
+	Matrix transposedMatrix();
 	float& operator()(UINT row, UINT col); // The matrix element input
 	float operator()(UINT row, UINT col) const; // The matrix element output 
 	Matrix operator+(const Matrix& other);

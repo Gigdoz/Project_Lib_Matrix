@@ -140,7 +140,7 @@ TEST_CASE("Matrix transposition")
 	B(1, 0) = 3;
 	B(1, 1) = 4;
 	B(1, 2) = 0;
-	CHECK(B == A.TransposedMatrix());
+	CHECK(B == A.transposedMatrix());
 }
 
 TEST_CASE("Determenant matrix")
@@ -162,5 +162,5 @@ TEST_CASE("Determenant matrix")
 	A(3, 1) = 2;
 	A(3, 2) = 1;
 	A(3, 3) = 1;
-	CHECK(round(A.Det()) == 62);
+	CHECK(round(A.det()) == 62);
 }
