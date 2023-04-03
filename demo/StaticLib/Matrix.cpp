@@ -182,6 +182,11 @@ Matrix Matrix::TransposedMatrix()
 float Matrix::Det() const
 {
 	__throw_if_non_square_matrix(*this);
+	for (UINT k = 0; k < rows; k++)
+	{
+		if (matrix[rows * k + k] == 0)
+			throw out_of_range("The leading element of the matrix is zero!");
+	}
 	float det = 1.0, q, q0;
 	Matrix result(*this);
 	if (rows == 1) return matrix[0];
@@ -190,7 +195,11 @@ float Matrix::Det() const
 	{
 		for (UINT k = 0; k < rows; k++)
 		{
-			q0 = result.matrix[rows * k + k];;
+			q0 = result.matrix[rows * k + k];
+			while (q0 == 0)
+			{
+				q0 = result.matrix[rows * k + k];
+			}
 			for (UINT i = k + 1; i < rows; i++)
 			{
 				q = result.matrix[rows * k + i];

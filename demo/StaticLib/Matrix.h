@@ -17,9 +17,10 @@ public:
 	UINT GetRows() const;
 	UINT GetCols() const;
 	float Det() const;
+	void swap(UINT row1, UINT row2);
+	Matrix TransposedMatrix();
 	float& operator()(UINT row, UINT col); // The matrix element input
 	float operator()(UINT row, UINT col) const; // The matrix element output 
-	Matrix TransposedMatrix();
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
 	Matrix operator*(const Matrix& other);
