@@ -172,50 +172,23 @@ Matrix Matrix::transposedMatrix()
 	Matrix Transpose(cols, rows);
 	for (UINT i = 0; i < cols; i++)
 	{
-		for (UINT j = 0; j < rows; j++) {
+		for (UINT j = 0; j < rows; j++) 
+		{
 			Transpose.matrix[Transpose.rows * j + i] = this->matrix[rows * i + j];
 		}
 	}
 	return Transpose;
 }
 
-float Matrix::det() const
-{
-	throwIfNonSquareMatrix(*this);
-	for (UINT k = 0; k < rows; k++)
-	{
-		if (matrix[rows * k + k] == 0)
-			throw out_of_range("The leading element of the matrix is zero!");
-	}
-	float det = 1.0, q, q0;
-	Matrix result(*this);
-		for (UINT k = 0; k < rows; k++)
-		{
-			q0 = result.matrix[rows * k + k];
-			while (q0 == 0)
-			{
-				q0 = result.matrix[rows * k + k];
-			}
-			for (UINT i = k + 1; i < rows; i++)
-			{
-				q = result.matrix[rows * k + i];
-				for (UINT j = k; j < rows; j++)
-				{
-					result.matrix[rows * j + i] = result.matrix[rows * j + i] - result.matrix[rows * j + k] / q0 * q;
-				}
-			}
-		}
-		for (UINT i = 0; i < rows; i++)
-			det *= result.matrix[rows * i + i];
-	return det;
-}
-
 void Matrix::print()
 {
 	cout << "Matrix: " << endl;
-	for (UINT row = 0; row < rows; row++) {
+	for (UINT row = 0; row < rows; row++)
+	{
 		for (UINT col = 0; col < cols; col++)
+		{
 			cout << "[" << matrix[rows * col + row] << "] ";
+		}
 		cout << endl;
 	}
 }

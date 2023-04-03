@@ -142,25 +142,3 @@ TEST_CASE("Matrix transposition")
 	B(1, 2) = 0;
 	CHECK(B == A.transposedMatrix());
 }
-
-TEST_CASE("Determenant matrix")
-{
-	Matrix A(4, 4);
-	A(0, 0) = 1;
-	A(0, 1) = 3;
-	A(0, 2) = 3;
-	A(0, 3) = 1;
-	A(1, 0) = 1;
-	A(1, 1) = 4;
-	A(1, 2) = 4;
-	A(1, 3) = 2;
-	A(2, 0) = 5;
-	A(2, 1) = 0;
-	A(2, 2) = 7;
-	A(2, 3) = 3;
-	A(3, 0) = 4;
-	A(3, 1) = 2;
-	A(3, 2) = 1;
-	A(3, 3) = 1;
-	CHECK(round(A.det()) == 62);
-}
