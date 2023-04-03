@@ -26,9 +26,9 @@ TEST_CASE("Operator sum/Operator 'in-place' +=")
 	C(1, 1) = 7;
 	C(2, 0) = 9;
 	C(2, 1) = 0;
-	CHECK(true == (C == A + B));
+	CHECK(C == A + B);
 	A += B;
-	CHECK(true == (C == A));
+	CHECK(C == A);
 }
 
 TEST_CASE("Operator deff/Operator 'in-place' -=")
@@ -54,9 +54,9 @@ TEST_CASE("Operator deff/Operator 'in-place' -=")
 	C(1, 1) = 1;
 	C(2, 0) = 1;
 	C(2, 1) = 0;
-	CHECK(true == (C == A - B));
+	CHECK(C == A - B);
 	A -= B;
-	CHECK(true == (C == A));
+	CHECK(C == A);
 }
 
 TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
@@ -85,9 +85,9 @@ TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
 	C(2, 0) = 10;
 	C(2, 1) = 5;
 	C(2, 2) = 15;
-	CHECK(true == (C == A * B));
+	CHECK(C == A * B);
 	A *= B;
-	CHECK(true == (C == A));
+	CHECK(C == A);
 }
 
 TEST_CASE("Operator multiplications on number/Operator 'in-place' *= (on the number)")
@@ -106,9 +106,9 @@ TEST_CASE("Operator multiplications on number/Operator 'in-place' *= (on the num
 	C(1, 1) = 16;
 	C(2, 0) = 20;
 	C(2, 1) = 0;
-	CHECK(true == (C == A * 4));
+	CHECK(C == A * 4);
 	A *= 4;
-	CHECK(true == (C == A));
+	CHECK(C == A);
 }
 
 TEST_CASE("Operator assignment")
@@ -121,7 +121,7 @@ TEST_CASE("Operator assignment")
 	A(2, 0) = 5;
 	A(2, 1) = 0;
 	C = A;
-	CHECK(true == (C == A));
+	CHECK(C == A);
 }
 
 TEST_CASE("Matrix transposition")
