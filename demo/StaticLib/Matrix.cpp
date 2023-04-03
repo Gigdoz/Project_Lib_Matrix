@@ -155,7 +155,7 @@ Matrix& Matrix::operator*=(float s)
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix& other)
+bool Matrix::operator==(const Matrix& other) const
 {
 	if (this->GetRows() != other.GetRows() || this->GetCols() != other.GetCols())
 		return false;

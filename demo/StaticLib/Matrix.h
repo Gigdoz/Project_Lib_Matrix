@@ -29,7 +29,7 @@ public:
 	Matrix& operator*=(const Matrix& other);
 	Matrix& operator*=(float);
 	Matrix& operator=(const Matrix& other);
-	bool operator==(const Matrix& other);
+	bool operator==(const Matrix& other) const;
 	void print();
 
 };
