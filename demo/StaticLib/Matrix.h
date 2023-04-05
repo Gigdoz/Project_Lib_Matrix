@@ -16,7 +16,7 @@ public:
 	Vector(UINT size) : size(size) { vector.resize(this->size, 0); }
 	float operator[](UINT num) const { return this->vector[num]; }
 	float& operator[](UINT num) { return this->vector[num];}
-	void dataSize(UINT size) { this->size = size; }
+	void vectorSize(UINT size) { this->size = size; }
 };
 
 class Matrix : Vector
@@ -26,7 +26,7 @@ private:
 	UINT rows, cols;
 public:
 	Matrix() : Vector(), rows(0), cols(0) {}
-	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) { dataSize(rows * cols); }
+	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) { vectorSize(rows * cols); }
 	Matrix(UINT rows, UINT cols) : data(rows*cols), rows(rows), cols(cols) {}
 	UINT getRows() const;
 	UINT getCols() const;
