@@ -5,15 +5,29 @@
 
 typedef unsigned int UINT;
 
-class Matrix
+class Vector
 {
 private:
-	std::vector<float> data;
+	std::vector<float> vector;
+	UINT size;
+public:
+	Vector() : vector(0), size(1) {}
+	Vector(const Vector& other) : vector(other.vector), size(other.size) {}
+	Vector(UINT size) : size(size) { vector.resize(this->size, 0); }
+	float operator[](UINT num) const { return this->vector[num]; }
+	float& operator[](UINT num) { return this->vector[num];}
+	void dataSize(UINT size) { this->size = size; }
+};
+
+class Matrix : Vector
+{
+private:
+	Vector data;
 	UINT rows, cols;
 public:
-	Matrix() : data(0), rows(0), cols(0) {}
-	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) {}
-	Matrix(UINT rows, UINT cols) : rows(rows), cols(cols) { data.resize(rows * cols, 0); }
+	Matrix() : Vector(), rows(0), cols(0) {}
+	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) { dataSize(rows * cols); }
+	Matrix(UINT rows, UINT cols) : data(rows*cols), rows(rows), cols(cols) {}
 	UINT getRows() const;
 	UINT getCols() const;
 	Matrix transposedMatrix();

@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-TEST_CASE("Mistake 'Out of range!'")
+TEST_CASE("Error handling 'Out of range!'")
 {
 	Matrix A(3, 2), B(2, 2);
 	A(0, 0) = 2;
@@ -13,12 +13,11 @@ TEST_CASE("Mistake 'Out of range!'")
 	A(1, 1) = 4;
 	A(2, 0) = 5;
 	A(2, 1) = 0;
-
 	CHECK_THROWS(B(1, 3) = 3);
 	CHECK_THROWS(A(1, 4));
 }
 
-TEST_CASE("Mistake 'The size of the matrices does not match!'")
+TEST_CASE("Error handling 'The size of the matrices does not match!'")
 {
 	Matrix A(3, 2), B(2, 2);
 	A(0, 0) = 2;
@@ -37,7 +36,7 @@ TEST_CASE("Mistake 'The size of the matrices does not match!'")
 	CHECK_THROWS(A -= B);
 }
 
-TEST_CASE("Mistake 'The rows and columns of the matrices does not match!'")
+TEST_CASE("Error handling 'The rows and columns of the matrices does not match!'")
 {
 	Matrix A(3, 1), B(2, 3);
 	A(0, 0) = 2;

@@ -137,7 +137,7 @@ bool Matrix::operator==(const Matrix& other) const
 	{
 		for (UINT j = 0; j < this->cols; j++)
 		{
-			if (this->data[rows * j + i] != other.data[other.rows * j + i])
+			if ((*this)(i, j) != other(i, j))
 			{
 				return false;
 			}
