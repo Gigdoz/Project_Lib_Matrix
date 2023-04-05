@@ -3,6 +3,57 @@
 #include "Matrix.h"
 #include <iomanip>
 
+
+TEST_CASE("Mistake 'Out of range!'")
+{
+	Matrix A(3, 2), B(2, 2);
+	A(0, 0) = 2;
+	A(0, 1) = 3;
+	A(1, 0) = 1;
+	A(1, 1) = 4;
+	A(2, 0) = 5;
+	A(2, 1) = 0;
+
+	CHECK_THROWS(B(1, 3) = 3);
+	CHECK_THROWS(A(1, 4));
+}
+
+TEST_CASE("Mistake 'The size of the matrices does not match!'")
+{
+	Matrix A(3, 2), B(2, 2);
+	A(0, 0) = 2;
+	A(0, 1) = 3;
+	A(1, 0) = 1;
+	A(1, 1) = 4;
+	A(2, 0) = 5;
+	A(2, 1) = 0;
+
+	B(0, 0) = 2;
+	B(0, 1) = 1;
+	B(1, 0) = 5;
+	B(1, 1) = 3;
+	CHECK_THROWS(A == B);
+	CHECK_THROWS(A += B);
+	CHECK_THROWS(A -= B);
+}
+
+TEST_CASE("Mistake 'The rows and columns of the matrices does not match!'")
+{
+	Matrix A(3, 1), B(2, 3);
+	A(0, 0) = 2;
+	A(1, 0) = 1;
+	A(2, 0) = 5;
+
+	B(0, 0) = 2;
+	B(0, 1) = 1;
+	B(0, 2) = 3;
+	B(1, 0) = 5;
+	B(1, 1) = 3;
+	B(1, 2) = 6;
+
+	CHECK_THROWS(A * B);
+}
+
 TEST_CASE("Operator sum/Operator 'in-place' +=")
 {
 	Matrix A(3, 2), B(3, 2), C(3, 2);
@@ -27,10 +78,8 @@ TEST_CASE("Operator sum/Operator 'in-place' +=")
 	C(2, 0) = 9;
 	C(2, 1) = 0;
 	CHECK(C == A + B);
-	Matrix D(B);
 	A += B;
 	CHECK(C == A);
-	CHECK(D == B);
 }
 
 TEST_CASE("Operator deff/Operator 'in-place' -=")

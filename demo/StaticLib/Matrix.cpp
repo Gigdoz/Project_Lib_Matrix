@@ -3,7 +3,8 @@
 
 using namespace std;
 
-namespace {
+namespace 
+{
 	void throwIfOutOfRange(const Matrix& other, UINT row, UINT col)
 	{
 		if (row >= other.getRows() || col >= other.getCols())
@@ -26,22 +27,6 @@ namespace {
 		{
 			throw invalid_argument("The rows and columns of the matrices does not match!");
 		}
-	}
-
-	void throwIfNonSquareMatrix(const Matrix& other)
-	{
-		if (other.getRows() != other.getCols())
-		{
-			throw invalid_argument(" The matrix is not square!");
-		}
-	}
-}
-
-Matrix::Matrix(const vector<float>& data, UINT rows, UINT cols) : data(data), rows(rows), cols(cols)
-{
-	if (this->data.max_size() == rows * cols)
-	{
-		throw invalid_argument("The size of the matrices does not match!");
 	}
 }
 
@@ -147,10 +132,7 @@ Matrix& Matrix::operator*=(float s)
 
 bool Matrix::operator==(const Matrix& other) const
 {
-	if (this->getRows() != other.getRows() || this->getCols() != other.getCols())
-	{
-		return false;
-	}
+	throwIfMatricesSizeDoesNotMatch(*this, other);
 	for (UINT i = 0; i < this->rows; i++)
 	{
 		for (UINT j = 0; j < this->cols; j++)
