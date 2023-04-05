@@ -8,14 +8,14 @@ typedef unsigned int UINT;
 class Matrix
 {
 private:
-	std::vector<float> matrix;
+	std::vector<float> data;
 	UINT rows, cols;
 public:
-	Matrix() : matrix(0), rows(0), cols(0) {}
-	Matrix(std::vector<float> matrix, UINT rows, UINT cols) : matrix(matrix), rows(rows), cols(cols) {}
-	Matrix(UINT rows, UINT cols);
-	UINT GetRows() const;
-	UINT GetCols() const;
+	Matrix() : data(0), rows(0), cols(0) {}
+	Matrix(const std::vector<float>& data, UINT rows, UINT cols);
+	Matrix(UINT rows, UINT cols):rows(rows), cols(cols) { data.resize(rows * cols, 0); }
+	UINT getRows() const;
+	UINT getCols() const;
 	Matrix transposedMatrix();
 	float& operator()(UINT row, UINT col); // The matrix element input
 	float operator()(UINT row, UINT col) const; // The matrix element output 
@@ -27,8 +27,7 @@ public:
 	Matrix& operator-=(const Matrix& other);
 	Matrix& operator*=(const Matrix& other);
 	Matrix& operator*=(float);
-	Matrix& operator=(const Matrix& other);
 	bool operator==(const Matrix& other) const;
-	void ToString();
+	void toString();
 
 };

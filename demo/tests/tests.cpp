@@ -27,8 +27,10 @@ TEST_CASE("Operator sum/Operator 'in-place' +=")
 	C(2, 0) = 9;
 	C(2, 1) = 0;
 	CHECK(C == A + B);
+	Matrix D(B);
 	A += B;
 	CHECK(C == A);
+	CHECK(D == B);
 }
 
 TEST_CASE("Operator deff/Operator 'in-place' -=")
@@ -141,4 +143,17 @@ TEST_CASE("Matrix transposition")
 	B(1, 1) = 4;
 	B(1, 2) = 0;
 	CHECK(B == A.transposedMatrix());
+}
+
+TEST_CASE("Matrix ToString")
+{
+	Matrix A(3, 2);
+	A(0, 0) = 2;
+	A(0, 1) = 3;
+	A(1, 0) = 1;
+	A(1, 1) = 4;
+	A(2, 0) = 5;
+	A(2, 1) = 0;
+
+	A.toString();
 }

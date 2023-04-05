@@ -6,7 +6,7 @@ using namespace std;
 namespace {
 	void throwIfOutOfRange(const Matrix& other, UINT row, UINT col)
 	{
-		if (row >= other.GetRows() || col >= other.GetCols())
+		if (row >= other.getRows() || col >= other.getCols())
 		{
 			throw out_of_range("Out of range!");
 		}
@@ -14,36 +14,43 @@ namespace {
 
 	void throwIfMatricesSizeDoesNotMatch(const Matrix& a, const Matrix& b)
 	{
-		if (a.GetRows() != b.GetRows() || a.GetCols() != b.GetCols())
+		if (a.getRows() != b.getRows() || a.getCols() != b.getCols())
+		{
 			throw invalid_argument("The size of the matrices does not match!");
+		}
 	}
 
 	void throwIfMatricesRowsAndColumnsDoesNotMatch(const Matrix& a, const Matrix& b)
 	{
-		if (b.GetRows() != a.GetCols())
+		if (b.getRows() != a.getCols())
+		{
 			throw invalid_argument("The rows and columns of the matrices does not match!");
+		}
 	}
 
 	void throwIfNonSquareMatrix(const Matrix& other)
 	{
-		if (other.GetRows() != other.GetCols())
+		if (other.getRows() != other.getCols())
+		{
 			throw invalid_argument(" The matrix is not square!");
+		}
 	}
 }
 
-Matrix::Matrix(UINT rows, UINT cols)
+Matrix::Matrix(const vector<float>& data, UINT rows, UINT cols) : data(data), rows(rows), cols(cols)
 {
-	this->rows = rows;
-	this->cols = cols;
-	this->matrix.resize(this->rows * this->cols, 0.0);
+	if (this->data.max_size() == rows * cols)
+	{
+		throw invalid_argument("The size of the matrices does not match!");
+	}
 }
 
-UINT Matrix::GetRows() const
+UINT Matrix::getRows() const
 {
 	return this->rows;
 }
 
-UINT Matrix::GetCols() const
+UINT Matrix::getCols() const
 {
 	return this->cols;
 }
@@ -51,56 +58,48 @@ UINT Matrix::GetCols() const
 float& Matrix::operator()(UINT row, UINT col)
 {
 	throwIfOutOfRange(*this, row, col);
-	return this->matrix[rows * col + row];
+	return this->data[rows * col + row];
 }
 
 float Matrix::operator()(UINT row, UINT col) const
 {
 	throwIfOutOfRange(*this, row, col);
-	return this->matrix[rows * col + row];
+	return this->data[rows * col + row];
 }
 
 Matrix Matrix::operator+(const Matrix& other)
 {
-	Matrix sum(*this);
-	return sum += other;
+	Matrix result(*this);
+	return result += other;
 }
 
 Matrix Matrix::operator-(const Matrix& other)
 {
-	Matrix diff(*this);
-	return diff -= other;
+	Matrix result(*this);
+	return result -= other;
 }
 
 Matrix Matrix::operator*(const Matrix& other)
 {
 	throwIfMatricesRowsAndColumnsDoesNotMatch(*this, other);
-	Matrix multip(this->rows, other.GetCols());
+	Matrix result(this->rows, other.getCols());
 	for (UINT i = 0; i < this->rows; i++)
 	{
-		for (UINT j = 0; j < other.GetCols(); j++)
+		for (UINT j = 0; j < other.getCols(); j++)
 		{
 			for (UINT k = 0; k < this->cols; k++)
 			{
-				multip.matrix[multip.rows * j + i] += this->matrix[rows * k + i] * other.matrix[other.rows * j + k];
+				result(i, j) += (*this)(i, k) * other(k, j);
 			}
 		}
 	}
-	return multip;
+	return result;
 }
 
 Matrix Matrix::operator*(float s)
 {
 	Matrix result(*this);
 	return result *= s;
-}
-
-Matrix& Matrix::operator=(const Matrix& other)
-{
-	this->cols = other.GetCols();
-	this->rows = other.GetRows();
-	this->matrix = other.matrix;
-	return *this;
 }
 
 Matrix& Matrix::operator+=(const Matrix& other)
@@ -110,7 +109,7 @@ Matrix& Matrix::operator+=(const Matrix& other)
 	{
 		for (UINT col = 0; col < this->cols; col++)
 		{
-			this->matrix[rows * col + row] = this->matrix[rows * col + row] + other.matrix[other.rows * col + row];
+			(*this)(row, col) += other(row, col);
 		}
 	}
 	return *this;
@@ -123,7 +122,7 @@ Matrix& Matrix::operator-=(const Matrix& other)
 	{
 		for (UINT col = 0; col < this->cols; col++)
 		{
-			this->matrix[rows * col + row] = this->matrix[rows * col + row] - other.matrix[other.rows * col + row];
+			(*this)(row, col) -= other(row, col);
 		}
 	}
 	return *this;
@@ -137,20 +136,31 @@ Matrix& Matrix::operator*=(const Matrix& other)
 Matrix& Matrix::operator*=(float s)
 {
 	for (UINT i = 0; i < rows; i++)
+	{
 		for (UINT j = 0; j < cols; j++)
-			this->matrix[rows * j + i] = this->matrix[rows * j + i] * s;
+		{
+			(*this)(i, j) *= s;
+		}
+	}
 	return *this;
 }
 
 bool Matrix::operator==(const Matrix& other) const
 {
-	if (this->GetRows() != other.GetRows() || this->GetCols() != other.GetCols())
+	if (this->getRows() != other.getRows() || this->getCols() != other.getCols())
+	{
 		return false;
+	}
 	for (UINT i = 0; i < this->rows; i++)
+	{
 		for (UINT j = 0; j < this->cols; j++)
 		{
-			if (this->matrix[rows * j + i] != other.matrix[other.rows * j + i]) return false;
+			if (this->data[rows * j + i] != other.data[other.rows * j + i])
+			{
+				return false;
+			}
 		}
+	}
 	return true;
 }
 
@@ -161,20 +171,20 @@ Matrix Matrix::transposedMatrix()
 	{
 		for (UINT j = 0; j < rows; j++) 
 		{
-			Transpose.matrix[Transpose.rows * j + i] = this->matrix[rows * i + j];
+			Transpose(i, j) = (*this)(j, i);
 		}
 	}
 	return Transpose;
 }
 
-void Matrix::ToString()
+void Matrix::toString()
 {
 	cout << "Matrix: " << endl;
 	for (UINT row = 0; row < rows; row++)
 	{
 		for (UINT col = 0; col < cols; col++)
 		{
-			cout << "[" << matrix[rows * col + row] << "] ";
+			cout << "[" << (*this)(row, col) << "] ";
 		}
 		cout << endl;
 	}
