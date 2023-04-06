@@ -12,7 +12,6 @@ private:
 	UINT rows, cols;
 public:
 	Matrix() : data(0), rows(0), cols(0) {}
-	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) {}
 	Matrix(UINT rows, UINT cols) : rows(rows), cols(cols) { data.resize(rows * cols, 0); }
 	UINT getRows() const;
 	UINT getCols() const;
@@ -34,9 +33,8 @@ public:
 class Vector : public Matrix
 {
 public:
-	Vector() : Matrix() {}
+	Vector() {}
 	Vector(UINT rows) : Matrix(rows, 1) {}
-	Vector(const Matrix& other) : Matrix(other) {}
-	float& operator()(UINT row) { return ::Matrix::operator()(row, 0); } // The matrix element input
-	float operator()(UINT row) const { return ::Matrix::operator()(row, 0); }; // The matrix element output 
+	float& operator()(UINT row) { return ::Matrix::operator()(row, 0); }
+	float operator()(UINT row) const { return ::Matrix::operator()(row, 0); }
 };
