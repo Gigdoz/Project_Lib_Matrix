@@ -165,7 +165,7 @@ Matrix Matrix::transposedMatrix()
 
 void Matrix::toString()
 {
-	cout << "Matrix: " << endl;
+	cout << endl;
 	for (UINT row = 0; row < rows; row++)
 	{
 		for (UINT col = 0; col < cols; col++)

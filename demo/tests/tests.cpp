@@ -201,6 +201,12 @@ TEST_CASE("Matrix transposition")
 TEST_CASE("Matrix ToString")
 {
 	Matrix A(3, 2);
+	Vector x(3);
+
+	x(0) = 1;
+	x(1) = 2;
+	x(2) = 3;
+
 	A(0, 0) = 2;
 	A(0, 1) = 3;
 	A(1, 0) = 1;
@@ -209,4 +215,5 @@ TEST_CASE("Matrix ToString")
 	A(2, 1) = 0;
 
 	A.toString();
+	x.toString();
 }
