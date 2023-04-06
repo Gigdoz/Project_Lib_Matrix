@@ -5,28 +5,15 @@
 
 typedef unsigned int UINT;
 
-class Vector
+class Matrix
 {
 private:
-	std::vector<float> vector;
-	UINT size;
-public:
-	Vector() : vector(0), size(1) {}
-	Vector(const Vector& other) : vector(other.vector), size(other.size) {}
-	Vector(UINT size) : size(size) { vector.resize(this->size, 0); }
-	float operator[](UINT num) const { return this->vector[num]; }
-	float& operator[](UINT num) { return this->vector[num];}
-};
-
-class Matrix : Vector
-{
-private:
-	Vector data;
+	std::vector<float> data;
 	UINT rows, cols;
 public:
-	Matrix() : Vector(), rows(0), cols(0) {}
+	Matrix() : data(0), rows(0), cols(0) {}
 	Matrix(const Matrix& other) : data(other.data), rows(other.rows), cols(other.cols) {}
-	Matrix(UINT rows, UINT cols) : data(rows*cols), rows(rows), cols(cols) {}
+	Matrix(UINT rows, UINT cols) : rows(rows), cols(cols) { data.resize(rows * cols, 0); }
 	UINT getRows() const;
 	UINT getCols() const;
 	Matrix transposedMatrix();
@@ -42,4 +29,14 @@ public:
 	Matrix& operator*=(float);
 	bool operator==(const Matrix& other) const;
 	void toString();
+};
+
+class Vector : public Matrix
+{
+public:
+	Vector() : Matrix() {}
+	Vector(UINT rows) : Matrix(rows, 1) {}
+	Vector(const Matrix& other) : Matrix(other) {}
+	float& operator()(UINT row) { return ::Matrix::operator()(row, 0); } // The matrix element input
+	float operator()(UINT row) const { return ::Matrix::operator()(row, 0); }; // The matrix element output 
 };

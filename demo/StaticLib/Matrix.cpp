@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace 
+namespace
 {
 	void throwIfOutOfRange(const Matrix& other, UINT row, UINT col)
 	{
@@ -137,7 +137,7 @@ bool Matrix::operator==(const Matrix& other) const
 	{
 		for (UINT j = 0; j < this->cols; j++)
 		{
-			if ((*this)(i, j) != other(i, j))
+			if (this->data[rows * j + i] != other.data[other.rows * j + i])
 			{
 				return false;
 			}
@@ -151,7 +151,7 @@ Matrix Matrix::transposedMatrix()
 	Matrix Transpose(cols, rows);
 	for (UINT i = 0; i < cols; i++)
 	{
-		for (UINT j = 0; j < rows; j++) 
+		for (UINT j = 0; j < rows; j++)
 		{
 			Transpose(i, j) = (*this)(j, i);
 		}
