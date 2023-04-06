@@ -132,7 +132,11 @@ Matrix& Matrix::operator*=(float s)
 
 bool Matrix::operator==(const Matrix& other) const
 {
-	throwIfMatricesSizeDoesNotMatch(*this, other);
+	if (this->rows != other.rows || this->cols != other.cols)
+	{
+		return false;
+	}
+
 	for (UINT i = 0; i < this->rows; i++)
 	{
 		for (UINT j = 0; j < this->cols; j++)

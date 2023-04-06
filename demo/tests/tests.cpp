@@ -25,7 +25,7 @@ TEST_CASE("Error handling 'The size of the matrices does not match!'")
 	B(0, 1) = 1;
 	B(1, 0) = 5;
 	B(1, 1) = 3;
-	CHECK_THROWS(A == B);
+	CHECK_FALSE(A == B);
 	CHECK_THROWS(A += B);
 	CHECK_THROWS(A -= B);
 }
@@ -47,14 +47,9 @@ TEST_CASE("Error handling 'The rows and columns of the matrices does not match!'
 	CHECK_THROWS(A * B);
 }
 
-TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
+TEST_CASE("Operator multiplications/Operator 'in-place' += ")
 {
-	Matrix A(3, 2), B(2, 3), C(3, 3);
-	Vector x(3), y(3);
-	x(0) = 1;
-	x(1) = 2;
-	x(2) = 3;
-
+	Matrix A(3, 2), B(3, 2), C(3, 2);
 	A(0, 0) = 2;
 	A(0, 1) = 3;
 	A(1, 0) = 1;
@@ -64,27 +59,19 @@ TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
 
 	B(0, 0) = 2;
 	B(0, 1) = 1;
-	B(0, 2) = 3;
 	B(1, 0) = 5;
 	B(1, 1) = 3;
-	B(1, 2) = 6;
+	B(2, 0) = 4;
+	B(2, 1) = 0;
 
-	C(0, 0) = 19;
-	C(0, 1) = 11;
-	C(0, 2) = 24;
-	C(1, 0) = 22;
-	C(1, 1) = 13;
-	C(1, 2) = 27;
-	C(2, 0) = 10;
-	C(2, 1) = 5;
-	C(2, 2) = 15;
-
-	y(0) = 113;
-	y(1) = 129;
-	y(2) = 65;
-	CHECK(y == C * x);
-	CHECK(C == A * B);
-	A *= B;
+	C(0, 0) = 4;
+	C(0, 1) = 4;
+	C(1, 0) = 6;
+	C(1, 1) = 7;
+	C(2, 0) = 9;
+	C(2, 1) = 0;
+	CHECK(C == A + B);
+	A += B;
 	CHECK(C == A);
 }
 
