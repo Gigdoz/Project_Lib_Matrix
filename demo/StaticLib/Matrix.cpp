@@ -165,13 +165,11 @@ Matrix Matrix::transposedMatrix()
 
 void Matrix::toString()
 {
-	cout << endl;
-	for (UINT row = 0; row < rows; row++)
-	{
-		for (UINT col = 0; col < cols; col++)
-		{
-			cout << "[" << (*this)(row, col) << "] ";
-		}
-		cout << endl;
-	}
+    cout << endl;
+    for (UINT row = 0; row < rows; row++) {
+        for (UINT col = 0; col < cols; col++) {
+            cout << "[" << (*this)(row, col) << "] ";
+        }
+        cout << endl;
+    }
 }
