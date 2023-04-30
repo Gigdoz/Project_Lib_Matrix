@@ -106,7 +106,7 @@ TEST_CASE("Operator deff/Operator 'in-place' -=")
 TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
 {
 	Matrix A(3, 2), B(2, 3), C(3, 3);
-	Vector x(3), y(3);
+	Vector x(3), y(3), e(3), r(3);
 	x(0) = 1;
 	x(1) = 2;
 	x(2) = 3;
@@ -138,7 +138,16 @@ TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
 	y(0) = 113;
 	y(1) = 129;
 	y(2) = 65;
+
+    e(0) = 0;
+    e(1) = 0;
+    e(2) = 0;
+
+    r(0) = 0;
+    r(1) = 0;
+    r(2) = 0;
 	CHECK(y == C * x);
+    CHECK(r == C * e);
 	CHECK(C == A * B);
 	A *= B;
 	CHECK(C == A);
@@ -168,7 +177,7 @@ TEST_CASE("Operator multiplications on number/Operator 'in-place' *= (on the num
 
 TEST_CASE("Operator assignment")
 {
-	Matrix A(3, 2), C(3, 2);
+	Matrix A(3, 2), C(3, 2), E(2, 2), R(2, 2);
 	A(0, 0) = 2;
 	A(0, 1) = 3;
 	A(1, 0) = 1;
@@ -176,6 +185,7 @@ TEST_CASE("Operator assignment")
 	A(2, 0) = 5;
 	A(2, 1) = 0;
 	C = A;
+    CHECK(E == A);
 	CHECK(C == A);
 }
 
