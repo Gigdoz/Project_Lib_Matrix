@@ -226,4 +226,7 @@ TEST_CASE("Matrix ToString")
 
 	A.toString();
 	x.toString();
+
+    std::cout << A;
+    std::cout << x;
 }
