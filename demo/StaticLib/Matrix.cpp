@@ -93,7 +93,8 @@ Matrix &Matrix::operator*=(const Matrix &other) {
     return *this = *this * other;
 }
 
-Matrix &Matrix::operator*=(float s) {
+Matrix& Matrix::operator*=(float s)
+{
     for (UINT i = 0; i < rows; i++) {
         for (UINT j = 0; j < cols; j++) {
             (*this)(i, j) *= s;
@@ -102,7 +103,8 @@ Matrix &Matrix::operator*=(float s) {
     return *this;
 }
 
-bool Matrix::operator==(const Matrix &other) const {
+bool Matrix::operator==(const Matrix& other) const
+{
     if (this->rows != other.rows || this->cols != other.cols) {
         return false;
     }
@@ -117,7 +119,8 @@ bool Matrix::operator==(const Matrix &other) const {
     return true;
 }
 
-Matrix Matrix::transposedMatrix() {
+Matrix Matrix::transposedMatrix()
+{
     Matrix Transpose(cols, rows);
     for (UINT i = 0; i < cols; i++) {
         for (UINT j = 0; j < rows; j++) {
@@ -127,7 +130,8 @@ Matrix Matrix::transposedMatrix() {
     return Transpose;
 }
 
-void Matrix::toString() {
+void Matrix::toString()
+{
     cout << endl;
     for (UINT row = 0; row < rows; row++) {
         for (UINT col = 0; col < cols; col++) {
