@@ -5,6 +5,9 @@
 
 typedef unsigned int UINT;
 
+class Matrix;
+std::ostream &operator<< (std::ostream &out, const Matrix &other);
+
 class Matrix
 {
 private:

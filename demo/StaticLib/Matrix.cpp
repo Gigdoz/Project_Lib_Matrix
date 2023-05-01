@@ -136,3 +136,15 @@ void Matrix::toString() {
         cout << endl;
     }
 }
+
+ostream &operator<<(ostream &out, const Matrix &other) {
+    out << endl;
+    for (int row = 0; row < other.getRows(); row++) {
+        for (int col = 0; col < other.getCols(); col++) {
+            out << "[" << other(row, col) << "] ";
+        }
+        out << endl;
+    }
+
+    return out;
+}
