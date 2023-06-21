@@ -31,12 +31,12 @@ UINT Matrix::getCols() const {
     return this->cols;
 }
 
-float &Matrix::operator()(UINT row, UINT col) {
+double&Matrix::operator()(UINT row, UINT col) {
     throwIfOutOfRange(*this, row, col);
     return this->data[rows * col + row];
 }
 
-float Matrix::operator()(UINT row, UINT col) const {
+double Matrix::operator()(UINT row, UINT col) const {
     throwIfOutOfRange(*this, row, col);
     return this->data[rows * col + row];
 }
@@ -64,7 +64,7 @@ Matrix Matrix::operator*(const Matrix &other) {
     return result;
 }
 
-Matrix Matrix::operator*(float s) {
+Matrix Matrix::operator*(double s) {
     Matrix result(*this);
     return result *= s;
 }
@@ -93,7 +93,7 @@ Matrix &Matrix::operator*=(const Matrix &other) {
     return *this = *this * other;
 }
 
-Matrix &Matrix::operator*=(float s) {
+Matrix &Matrix::operator*=(double s) {
     for (UINT i = 0; i < rows; i++) {
         for (UINT j = 0; j < cols; j++) {
             (*this)(i, j) *= s;
@@ -127,16 +127,6 @@ Matrix Matrix::transposedMatrix() {
     return Transpose;
 }
 
-void Matrix::toString() {
-    cout << endl;
-    for (UINT row = 0; row < rows; row++) {
-        for (UINT col = 0; col < cols; col++) {
-            cout << "[" << (*this)(row, col) << "] ";
-        }
-        cout << endl;
-    }
-}
-
 ostream &operator<<(ostream &out, const Matrix &other) {
     out << endl;
     for (int row = 0; row < other.getRows(); row++) {
@@ -147,4 +137,11 @@ ostream &operator<<(ostream &out, const Matrix &other) {
     }
 
     return out;
+}
+
+double scalerProduct(const Vector &vector_first, const Vector &vector_second)
+{
+    Vector vector = vector_first;
+    Matrix sc = vector.transposedMatrix() * vector_second;
+    return sc(0,0);
 }
