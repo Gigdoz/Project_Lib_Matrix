@@ -47,7 +47,7 @@ TEST_CASE("Error handling 'The rows and columns of the matrices does not match!'
 	CHECK_THROWS(A * B);
 }
 
-TEST_CASE("Operator multiplications/Operator 'in-place' += ")
+TEST_CASE("Operator addition/Operator 'in-place' += ")
 {
 	Matrix A(3, 2), B(3, 2), C(3, 2);
 	A(0, 0) = 2;
@@ -103,13 +103,17 @@ TEST_CASE("Operator deff/Operator 'in-place' -=")
 	CHECK(C == A);
 }
 
-TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
+TEST_CASE("Operator multiplication/Operator 'in-place' *=  and scalar product")
 {
 	Matrix A(3, 2), B(2, 3), C(3, 3);
-	Vector x(3), y(3), e(3), r(3);
+	Vector x(3), y(3);
 	x(0) = 1;
 	x(1) = 2;
 	x(2) = 3;
+
+	y(0) = 113;
+	y(1) = 129;
+	y(2) = 65;
 
 	A(0, 0) = 2;
 	A(0, 1) = 3;
@@ -135,22 +139,26 @@ TEST_CASE("Operator multiplications/Operator 'in-place' *= ")
 	C(2, 1) = 5;
 	C(2, 2) = 15;
 
-	y(0) = 113;
-	y(1) = 129;
-	y(2) = 65;
-
-    e(0) = 0;
-    e(1) = 0;
-    e(2) = 0;
-
-    r(0) = 0;
-    r(1) = 0;
-    r(2) = 0;
 	CHECK(y == C * x);
-    CHECK(r == C * e);
 	CHECK(C == A * B);
 	A *= B;
 	CHECK(C == A);
+
+	C(0, 0) = 113;
+	C(0, 1) = 129;
+	C(0, 2) = 65;
+	C(1, 0) = 226;
+	C(1, 1) = 258;
+	C(1, 2) = 130;
+	C(2, 0) = 339;
+	C(2, 1) = 387;
+	C(2, 2) = 195;
+	CHECK(C == x * y.transposedMatrix());
+
+	Matrix sc = x.transposedMatrix() * y;
+	CHECK(sc(0, 0) == 566);
+
+	CHECK(scalerProduct(y, x) == 566);
 }
 
 TEST_CASE("Operator multiplications on number/Operator 'in-place' *= (on the number)")
@@ -223,9 +231,6 @@ TEST_CASE("Matrix ToString")
 	A(2, 0) = 5;
 	A(2, 1) = 0;
 
-	A.toString();
-	x.toString();
-
     std::cout << A;
-    std::cout << x;
+    std::cout << x.transposedMatrix();
 }
