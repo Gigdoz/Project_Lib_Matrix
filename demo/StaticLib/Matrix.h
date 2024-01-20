@@ -16,8 +16,9 @@ public:
         data_.resize(rows * cols, 0);
     }
 
-	UINT rows() const { return this->rows_; }
-	UINT cols() const { return this->cols_; }
+	UINT rows() const { return rows_; }
+	UINT cols() const { return cols_; }
+    UINT size() const { return cols_ * rows_;}
 	Matrix transpose();
 	double& operator()(UINT row, UINT col); // The matrix element input
 	double operator()(UINT row, UINT col) const; // The matrix element output
