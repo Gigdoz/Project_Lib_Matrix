@@ -44,7 +44,7 @@ Matrix Matrix::operator-(const Matrix &other) {
 
 Matrix Matrix::operator*(const Matrix &other) {
     if (other.rows_ != this->cols_) {
-        throw std::invalid_argument("The rows_ and columns of the matrices does not match!");
+        throw std::invalid_argument("The rows and columns of the matrices does not match!");
     }
 
     Matrix result(this->rows_, other.cols_);
@@ -151,6 +151,18 @@ std::ostream &operator<<(std::ostream &out, const Matrix &other) {
     }
 
     return out;
+}
+
+Vector Vector::cross(const Vector& other) {
+    if (this->rows() != 3 || other.rows() != 3) {
+        throw std::invalid_argument("Cross product is only for vectors of size 3!");
+    }
+    Vector result(3);
+    result(0) = (*this)(1) * other(2) - (*this)(2) * other(1);
+    result(1) = (*this)(2) * other(0) - (*this)(0) * other(2);
+    result(2) = (*this)(0) * other(1) - (*this)(1) * other(0);
+
+    return result;
 }
 
 double Vector::norm() const {
