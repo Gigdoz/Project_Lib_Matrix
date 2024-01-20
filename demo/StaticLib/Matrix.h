@@ -11,11 +11,12 @@ public:
 	Matrix(UINT rows, UINT cols) : rows_(rows), cols_(cols) {
         data_.resize(rows * cols, 0);
     }
-
+    Matrix(UINT rows, UINT cols, std::initializer_list<double> data);
 	UINT rows() const { return rows_; }
 	UINT cols() const { return cols_; }
     UINT size() const { return cols_ * rows_;}
 	Matrix transpose();
+    Matrix& operator=(std::initializer_list<double> data);
 	double& operator()(UINT row, UINT col); // The matrix element input
 	double operator()(UINT row, UINT col) const; // The matrix element output
 	Matrix operator+(const Matrix& other);

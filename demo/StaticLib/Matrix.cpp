@@ -1,5 +1,14 @@
 #include "Matrix.h"
 
+Matrix::Matrix(UINT rows, UINT cols, std::initializer_list<double> data)
+    : data_(data),
+    rows_(rows),
+    cols_(cols) {
+    if (data.size() != rows * cols) {
+        throw std::invalid_argument("The size of the lists does not match!");
+    }
+}
+
 double &Matrix::operator()(UINT row, UINT col) {
     if (row >= this->rows_ || col >= this->cols_) {
         throw std::out_of_range("Out of range!");
@@ -12,6 +21,14 @@ double Matrix::operator()(UINT row, UINT col) const {
         throw std::out_of_range("Out of range!");
     }
     return this->data_[cols_ * row + col];
+}
+
+Matrix& Matrix::operator=(std::initializer_list<double> data) {
+    if (data_.size() != data.size()) {
+        throw std::invalid_argument("The size of the lists does not match!");
+    }
+    data_ = data;
+    return *this;
 }
 
 Matrix Matrix::operator+(const Matrix &other) {
