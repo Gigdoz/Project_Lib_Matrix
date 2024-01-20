@@ -1,7 +1,4 @@
-
 #include "Matrix.h"
-
-using namespace std;
 
 UINT Matrix::getRows() const {
     return this->rows;
@@ -11,16 +8,16 @@ UINT Matrix::getCols() const {
     return this->cols;
 }
 
-double&Matrix::operator()(UINT row, UINT col) {
+double &Matrix::operator()(UINT row, UINT col) {
     if (row >= this->getRows() || col >= this->getCols()) {
-        throw out_of_range("Out of range!");
+        throw std::out_of_range("Out of range!");
     }
     return this->data[cols * row + col];
 }
 
 double Matrix::operator()(UINT row, UINT col) const {
     if (row >= this->getRows() || col >= this->getCols()) {
-        throw out_of_range("Out of range!");
+        throw std::out_of_range("Out of range!");
     }
     return this->data[cols * row + col];
 }
@@ -37,7 +34,7 @@ Matrix Matrix::operator-(const Matrix &other) {
 
 Matrix Matrix::operator*(const Matrix &other) {
     if (other.getRows() != this->getCols()) {
-        throw invalid_argument("The rows and columns of the matrices does not match!");
+        throw std::invalid_argument("The rows and columns of the matrices does not match!");
     }
 
     Matrix result(this->rows, other.getCols());
@@ -58,7 +55,7 @@ Matrix Matrix::operator*(double s) {
 
 Matrix &Matrix::operator+=(const Matrix &other) {
     if (this->getRows() != other.getRows() || this->getCols() != other.getCols()) {
-        throw invalid_argument("The size of the matrices does not match!");
+        throw std::invalid_argument("The size of the matrices does not match!");
     }
 
     for (UINT row = 0; row < this->rows; row++) {
@@ -71,7 +68,7 @@ Matrix &Matrix::operator+=(const Matrix &other) {
 
 Matrix &Matrix::operator-=(const Matrix &other) {
     if (this->getRows() != other.getRows() || this->getCols() != other.getCols()) {
-        throw invalid_argument("The size of the matrices does not match!");
+        throw std::invalid_argument("The size of the matrices does not match!");
     }
 
     for (UINT row = 0; row < this->rows; row++) {
@@ -120,21 +117,20 @@ Matrix Matrix::transpose() {
     return transposed;
 }
 
-ostream &operator<<(ostream &out, const Matrix &other) {
-    out << endl;
+std::ostream &operator<<(std::ostream &out, const Matrix &other) {
+    out << std::endl;
     for (int row = 0; row < other.getRows(); row++) {
         for (int col = 0; col < other.getCols(); col++) {
             out << "[" << other(row, col) << "] ";
         }
-        out << endl;
+        out << std::endl;
     }
 
     return out;
 }
 
-double scalerProduct(const Vector &vector_first, const Vector &vector_second)
-{
+double scalerProduct(const Vector &vector_first, const Vector &vector_second) {
     Vector vector = vector_first;
     Matrix sc = vector.transpose() * vector_second;
-    return sc(0,0);
+    return sc(0, 0);
 }
