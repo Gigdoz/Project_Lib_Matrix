@@ -5,10 +5,6 @@
 
 typedef unsigned int UINT;
 
-class Matrix;
-class Vector;
-std::ostream &operator<<(std::ostream &out, const Matrix &other);
-
 class Matrix {
 public:
 	Matrix() : data_(0), rows_(0), cols_(0) {}
@@ -45,3 +41,5 @@ public:
 	double operator()(UINT row) const { return ::Matrix::operator()(row, 0); }
     double dot(const Vector &other) { return (this->transpose() * other)(0, 0); }
 };
+
+std::ostream &operator<<(std::ostream &out, const Matrix &other);
