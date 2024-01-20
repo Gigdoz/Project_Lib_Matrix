@@ -33,12 +33,12 @@ UINT Matrix::getCols() const {
 
 double&Matrix::operator()(UINT row, UINT col) {
     throwIfOutOfRange(*this, row, col);
-    return this->data[rows * col + row];
+    return this->data[cols * row + col];
 }
 
 double Matrix::operator()(UINT row, UINT col) const {
     throwIfOutOfRange(*this, row, col);
-    return this->data[rows * col + row];
+    return this->data[cols * row + col];
 }
 
 Matrix Matrix::operator+(const Matrix &other) {
