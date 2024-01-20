@@ -3,26 +3,6 @@
 
 using namespace std;
 
-namespace {
-    void throwIfOutOfRange(const Matrix &other, UINT row, UINT col) {
-        if (row >= other.getRows() || col >= other.getCols()) {
-            throw out_of_range("Out of range!");
-        }
-    }
-
-    void throwIfMatricesSizeDoesNotMatch(const Matrix &a, const Matrix &b) {
-        if (a.getRows() != b.getRows() || a.getCols() != b.getCols()) {
-            throw invalid_argument("The size of the matrices does not match!");
-        }
-    }
-
-    void throwIfMatricesRowsAndColumnsDoesNotMatch(const Matrix &a, const Matrix &b) {
-        if (b.getRows() != a.getCols()) {
-            throw invalid_argument("The rows and columns of the matrices does not match!");
-        }
-    }
-}
-
 UINT Matrix::getRows() const {
     return this->rows;
 }
@@ -32,12 +12,16 @@ UINT Matrix::getCols() const {
 }
 
 double&Matrix::operator()(UINT row, UINT col) {
-    throwIfOutOfRange(*this, row, col);
+    if (row >= this->getRows() || col >= this->getCols()) {
+        throw out_of_range("Out of range!");
+    }
     return this->data[cols * row + col];
 }
 
 double Matrix::operator()(UINT row, UINT col) const {
-    throwIfOutOfRange(*this, row, col);
+    if (row >= this->getRows() || col >= this->getCols()) {
+        throw out_of_range("Out of range!");
+    }
     return this->data[cols * row + col];
 }
 
@@ -52,7 +36,10 @@ Matrix Matrix::operator-(const Matrix &other) {
 }
 
 Matrix Matrix::operator*(const Matrix &other) {
-    throwIfMatricesRowsAndColumnsDoesNotMatch(*this, other);
+    if (other.getRows() != this->getCols()) {
+        throw invalid_argument("The rows and columns of the matrices does not match!");
+    }
+
     Matrix result(this->rows, other.getCols());
     for (UINT i = 0; i < this->rows; i++) {
         for (UINT j = 0; j < other.getCols(); j++) {
@@ -70,7 +57,10 @@ Matrix Matrix::operator*(double s) {
 }
 
 Matrix &Matrix::operator+=(const Matrix &other) {
-    throwIfMatricesSizeDoesNotMatch(*this, other);
+    if (this->getRows() != other.getRows() || this->getCols() != other.getCols()) {
+        throw invalid_argument("The size of the matrices does not match!");
+    }
+
     for (UINT row = 0; row < this->rows; row++) {
         for (UINT col = 0; col < this->cols; col++) {
             (*this)(row, col) += other(row, col);
@@ -80,7 +70,10 @@ Matrix &Matrix::operator+=(const Matrix &other) {
 }
 
 Matrix &Matrix::operator-=(const Matrix &other) {
-    throwIfMatricesSizeDoesNotMatch(*this, other);
+    if (this->getRows() != other.getRows() || this->getCols() != other.getCols()) {
+        throw invalid_argument("The size of the matrices does not match!");
+    }
+
     for (UINT row = 0; row < this->rows; row++) {
         for (UINT col = 0; col < this->cols; col++) {
             (*this)(row, col) -= other(row, col);
