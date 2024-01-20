@@ -117,14 +117,14 @@ bool Matrix::operator==(const Matrix &other) const {
     return true;
 }
 
-Matrix Matrix::transposedMatrix() {
-    Matrix Transpose(cols, rows);
+Matrix Matrix::transpose() {
+    Matrix transposed(cols, rows);
     for (UINT i = 0; i < cols; i++) {
         for (UINT j = 0; j < rows; j++) {
-            Transpose(i, j) = (*this)(j, i);
+            transposed(i, j) = (*this)(j, i);
         }
     }
-    return Transpose;
+    return transposed;
 }
 
 ostream &operator<<(ostream &out, const Matrix &other) {
@@ -142,6 +142,6 @@ ostream &operator<<(ostream &out, const Matrix &other) {
 double scalerProduct(const Vector &vector_first, const Vector &vector_second)
 {
     Vector vector = vector_first;
-    Matrix sc = vector.transposedMatrix() * vector_second;
+    Matrix sc = vector.transpose() * vector_second;
     return sc(0,0);
 }

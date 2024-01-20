@@ -153,9 +153,9 @@ TEST_CASE("Operator multiplication/Operator 'in-place' *=  and scalar product")
 	C(2, 0) = 339;
 	C(2, 1) = 387;
 	C(2, 2) = 195;
-	CHECK(C == x * y.transposedMatrix());
+	CHECK(C == x * y.transpose());
 
-	Matrix sc = x.transposedMatrix() * y;
+	Matrix sc = x.transpose() * y;
 	CHECK(sc(0, 0) == 566);
 
 	CHECK(scalerProduct(y, x) == 566);
@@ -212,7 +212,7 @@ TEST_CASE("Matrix transposition")
 	B(1, 0) = 3;
 	B(1, 1) = 4;
 	B(1, 2) = 0;
-	CHECK(B == A.transposedMatrix());
+	CHECK(B == A.transpose());
 }
 
 TEST_CASE("Matrix ToString")
@@ -232,5 +232,5 @@ TEST_CASE("Matrix ToString")
 	A(2, 1) = 0;
 
     std::cout << A;
-    std::cout << x.transposedMatrix();
+    std::cout << x.transpose();
 }

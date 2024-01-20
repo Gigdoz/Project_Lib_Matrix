@@ -20,7 +20,7 @@ public:
 	Matrix(UINT rows, UINT cols) : rows(rows), cols(cols) { data.resize(rows * cols, 0); }
 	UINT getRows() const;
 	UINT getCols() const;
-	Matrix transposedMatrix();
+	Matrix transpose();
 	double& operator()(UINT row, UINT col); // The matrix element input
 	double operator()(UINT row, UINT col) const; // The matrix element output 
 	Matrix operator+(const Matrix& other);
