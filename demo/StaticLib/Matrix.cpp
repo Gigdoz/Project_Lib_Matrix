@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include <math.h>
 
 Matrix::Matrix(UINT rows, UINT cols, std::initializer_list<double> data)
     : data_(data),
@@ -150,4 +151,12 @@ std::ostream &operator<<(std::ostream &out, const Matrix &other) {
     }
 
     return out;
+}
+
+double Vector::norm() const {
+    double squad = 0.0;
+    for (int i = 0; i < this->rows(); i++) {
+        squad += (*this)(i) * (*this)(i);
+    }
+    return std::sqrt(squad);
 }

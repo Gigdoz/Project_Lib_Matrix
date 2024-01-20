@@ -44,6 +44,7 @@ public:
 	double& operator()(UINT row) { return ::Matrix::operator()(row, 0); }
 	double operator()(UINT row) const { return ::Matrix::operator()(row, 0); }
     double dot(const Vector &other) { return (this->transpose() * other)(0, 0); }
+    double norm() const;
 };
 
 std::ostream &operator<<(std::ostream &out, const Matrix &other);
