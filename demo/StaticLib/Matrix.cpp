@@ -1,25 +1,17 @@
 #include "Matrix.h"
 
-UINT Matrix::getRows() const {
-    return this->rows;
-}
-
-UINT Matrix::getCols() const {
-    return this->cols;
-}
-
 double &Matrix::operator()(UINT row, UINT col) {
-    if (row >= this->rows || col >= this->cols) {
+    if (row >= this->rows_ || col >= this->cols_) {
         throw std::out_of_range("Out of range!");
     }
-    return this->data[cols * row + col];
+    return this->data_[cols_ * row + col];
 }
 
 double Matrix::operator()(UINT row, UINT col) const {
-    if (row >= this->rows || col >= this->cols) {
+    if (row >= this->rows_ || col >= this->cols_) {
         throw std::out_of_range("Out of range!");
     }
-    return this->data[cols * row + col];
+    return this->data_[cols_ * row + col];
 }
 
 Matrix Matrix::operator+(const Matrix &other) {
@@ -33,14 +25,14 @@ Matrix Matrix::operator-(const Matrix &other) {
 }
 
 Matrix Matrix::operator*(const Matrix &other) {
-    if (other.rows != this->cols) {
-        throw std::invalid_argument("The rows and columns of the matrices does not match!");
+    if (other.rows_ != this->cols_) {
+        throw std::invalid_argument("The rows_ and columns of the matrices does not match!");
     }
 
-    Matrix result(this->rows, other.cols);
-    for (UINT i = 0; i < this->rows; i++) {
-        for (UINT j = 0; j < other.cols; j++) {
-            for (UINT k = 0; k < this->cols; k++) {
+    Matrix result(this->rows_, other.cols_);
+    for (UINT i = 0; i < this->rows_; i++) {
+        for (UINT j = 0; j < other.cols_; j++) {
+            for (UINT k = 0; k < this->cols_; k++) {
                 result(i, j) += (*this)(i, k) * other(k, j);
             }
         }
@@ -54,26 +46,26 @@ Matrix Matrix::operator*(double s) {
 }
 
 Matrix &Matrix::operator+=(const Matrix &other) {
-    if (this->rows != other.rows || this->cols != other.cols) {
+    if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
         throw std::invalid_argument("The size of the matrices does not match!");
     }
 
-    for (UINT i = 0; i < this->rows; i++) {
-        for (UINT j = 0; j < this->cols; j++) {
-            this->data[cols * i + j] += other.data[cols * i + j];
+    for (UINT i = 0; i < this->rows_; i++) {
+        for (UINT j = 0; j < this->cols_; j++) {
+            this->data_[cols_ * i + j] += other.data_[cols_ * i + j];
         }
     }
     return *this;
 }
 
 Matrix &Matrix::operator-=(const Matrix &other) {
-    if (this->rows != other.rows || this->cols != other.cols) {
+    if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
         throw std::invalid_argument("The size of the matrices does not match!");
     }
 
-    for (UINT i = 0; i < this->rows; i++) {
-        for (UINT j = 0; j < this->cols; j++) {
-            this->data[cols * i + j] -= other.data[cols * i + j];
+    for (UINT i = 0; i < this->rows_; i++) {
+        for (UINT j = 0; j < this->cols_; j++) {
+            this->data_[cols_ * i + j] -= other.data_[cols_ * i + j];
         }
     }
     return *this;
@@ -84,22 +76,22 @@ Matrix &Matrix::operator*=(const Matrix &other) {
 }
 
 Matrix &Matrix::operator*=(double s) {
-    for (UINT i = 0; i < rows; i++) {
-        for (UINT j = 0; j < cols; j++) {
-            this->data[cols * i + j] *= s;
+    for (UINT i = 0; i < rows_; i++) {
+        for (UINT j = 0; j < cols_; j++) {
+            this->data_[cols_ * i + j] *= s;
         }
     }
     return *this;
 }
 
 bool Matrix::operator==(const Matrix &other) const {
-    if (this->rows != other.rows || this->cols != other.cols) {
+    if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
         return false;
     }
 
-    for (UINT i = 0; i < this->rows; i++) {
-        for (UINT j = 0; j < this->cols; j++) {
-            if (this->data[cols * i + j] != other.data[other.cols * i + j]) {
+    for (UINT i = 0; i < this->rows_; i++) {
+        for (UINT j = 0; j < this->cols_; j++) {
+            if (this->data_[cols_ * i + j] != other.data_[other.cols_ * i + j]) {
                 return false;
             }
         }
@@ -108,10 +100,10 @@ bool Matrix::operator==(const Matrix &other) const {
 }
 
 Matrix Matrix::transpose() {
-    Matrix transposed(cols, rows);
-    for (UINT i = 0; i < cols; i++) {
-        for (UINT j = 0; j < rows; j++) {
-            transposed.data[transposed.cols * i + j] = this->data[cols * j + i];
+    Matrix transposed(cols_, rows_);
+    for (UINT i = 0; i < cols_; i++) {
+        for (UINT j = 0; j < rows_; j++) {
+            transposed.data_[transposed.cols_ * i + j] = this->data_[cols_ * j + i];
         }
     }
     return transposed;
@@ -119,8 +111,8 @@ Matrix Matrix::transpose() {
 
 std::ostream &operator<<(std::ostream &out, const Matrix &other) {
     out << std::endl;
-    for (int row = 0; row < other.getRows(); row++) {
-        for (int col = 0; col < other.getCols(); col++) {
+    for (int row = 0; row < other.rows(); row++) {
+        for (int col = 0; col < other.cols(); col++) {
             out << "[" << other(row, col) << "] ";
         }
         out << std::endl;

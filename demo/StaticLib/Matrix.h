@@ -11,13 +11,13 @@ std::ostream &operator<<(std::ostream &out, const Matrix &other);
 
 class Matrix {
 public:
-	Matrix() : data(0), rows(0), cols(0) {}
-	Matrix(UINT rows, UINT cols) : rows(rows), cols(cols) {
-        data.resize(rows * cols, 0);
+	Matrix() : data_(0), rows_(0), cols_(0) {}
+	Matrix(UINT rows, UINT cols) : rows_(rows), cols_(cols) {
+        data_.resize(rows * cols, 0);
     }
 
-	UINT getRows() const;
-	UINT getCols() const;
+	UINT rows() const { return this->rows_; }
+	UINT cols() const { return this->cols_; }
 	Matrix transpose();
 	double& operator()(UINT row, UINT col); // The matrix element input
 	double operator()(UINT row, UINT col) const; // The matrix element output
@@ -32,8 +32,8 @@ public:
 	bool operator==(const Matrix& other) const;
 
 private:
-    std::vector<double> data;
-    UINT rows, cols;
+    std::vector<double> data_;
+    UINT rows_, cols_;
 };
 
 class Vector : public Matrix {
