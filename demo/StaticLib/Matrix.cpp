@@ -62,6 +62,11 @@ Matrix Matrix::operator*(double s) {
     return result *= s;
 }
 
+Matrix Matrix::operator/(double s) {
+    Matrix result(*this);
+    return result /= s;
+}
+
 Matrix &Matrix::operator+=(const Matrix &other) {
     if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
         throw std::invalid_argument("The size of the matrices does not match!");
@@ -96,6 +101,15 @@ Matrix &Matrix::operator*=(double s) {
     for (UINT i = 0; i < rows_; i++) {
         for (UINT j = 0; j < cols_; j++) {
             this->data_[cols_ * i + j] *= s;
+        }
+    }
+    return *this;
+}
+
+Matrix &Matrix::operator/=(double s) {
+    for (UINT i = 0; i < rows_; i++) {
+        for (UINT j = 0; j < cols_; j++) {
+            this->data_[cols_ * i + j] /= s;
         }
     }
     return *this;

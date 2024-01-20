@@ -23,10 +23,12 @@ public:
 	Matrix operator-(const Matrix& other);
 	Matrix operator*(const Matrix& other);
 	Matrix operator*(double);
+    Matrix operator/(double);
 	Matrix& operator+=(const Matrix& other);
 	Matrix& operator-=(const Matrix& other);
 	Matrix& operator*=(const Matrix& other);
 	Matrix& operator*=(double);
+    Matrix& operator/=(double);
 	bool operator==(const Matrix& other) const;
 
 private:
