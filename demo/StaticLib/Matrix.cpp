@@ -128,9 +128,3 @@ std::ostream &operator<<(std::ostream &out, const Matrix &other) {
 
     return out;
 }
-
-double scalerProduct(const Vector &vector_first, const Vector &vector_second) {
-    Vector vector = vector_first;
-    Matrix sc = vector.transpose() * vector_second;
-    return sc(0, 0);
-}

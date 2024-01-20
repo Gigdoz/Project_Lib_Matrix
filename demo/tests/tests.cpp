@@ -151,7 +151,7 @@ TEST_CASE("Operator multiplication/Operator 'in-place' *=  and scalar product") 
     Matrix sc = x.transpose() * y;
     CHECK(sc(0, 0) == 566);
 
-    CHECK(scalerProduct(y, x) == 566);
+    CHECK(y.dot(x) == 566);
 }
 
 TEST_CASE("Operator multiplications on number/Operator 'in-place' *= (on the number)") {

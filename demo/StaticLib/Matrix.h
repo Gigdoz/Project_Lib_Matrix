@@ -8,7 +8,6 @@ typedef unsigned int UINT;
 class Matrix;
 class Vector;
 std::ostream &operator<<(std::ostream &out, const Matrix &other);
-double scalerProduct(const Vector &vector_first, const Vector &vector_second);
 
 class Matrix {
 public:
@@ -43,4 +42,5 @@ public:
 	Vector(UINT rows) : Matrix(rows, 1) {}
 	double& operator()(UINT row) { return ::Matrix::operator()(row, 0); }
 	double operator()(UINT row) const { return ::Matrix::operator()(row, 0); }
+    double dot(const Vector &other) { return (this->transpose() * other)(0, 0); }
 };
