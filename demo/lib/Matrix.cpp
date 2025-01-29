@@ -1,7 +1,6 @@
 #include "Matrix.h"
-#include <math.h>
 
-Matrix::Matrix(UINT rows, UINT cols, std::initializer_list<double> data)
+Matrix::Matrix(UINT rows, UINT cols, std::initializer_list<double>& data)
     : data_(data),
     rows_(rows),
     cols_(cols) {
@@ -24,7 +23,7 @@ double Matrix::operator()(UINT row, UINT col) const {
     return this->data_[cols_ * row + col];
 }
 
-Matrix& Matrix::operator=(std::initializer_list<double> data) {
+Matrix& Matrix::operator=(std::initializer_list<double>&& data) {
     if (data_.size() != data.size()) {
         throw std::invalid_argument("The size of the lists does not match!");
     }
@@ -171,4 +170,12 @@ double Vector::norm() const {
         squad += (*this)(i) * (*this)(i);
     }
     return std::sqrt(squad);
+}
+
+Vector& Vector::operator=(std::initializer_list<double>&& data) {
+    if (data_.size() != data.size()) {
+        throw std::invalid_argument("The size of the lists does not match!");
+    }
+    data_ = data;
+    return *this;
 }

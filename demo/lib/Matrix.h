@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 typedef unsigned int UINT;
 
@@ -11,12 +12,12 @@ public:
 	Matrix(UINT rows, UINT cols) : rows_(rows), cols_(cols) {
         data_.resize(rows * cols, 0);
     }
-    Matrix(UINT rows, UINT cols, std::initializer_list<double> data);
+    Matrix(UINT rows, UINT cols, std::initializer_list<double>& data);
 	UINT rows() const { return rows_; }
 	UINT cols() const { return cols_; }
     UINT size() const { return cols_ * rows_;}
 	Matrix transpose();
-    Matrix& operator=(std::initializer_list<double> data);
+    Matrix& operator=(std::initializer_list<double>&& data);
 	double& operator()(UINT row, UINT col); // The matrix element input
 	double operator()(UINT row, UINT col) const; // The matrix element output
 	Matrix operator+(const Matrix& other);
@@ -31,7 +32,7 @@ public:
     Matrix& operator/=(double);
 	bool operator==(const Matrix& other) const;
 
-private:
+protected:
     std::vector<double> data_;
     UINT rows_, cols_;
 };
@@ -39,8 +40,10 @@ private:
 class Vector : public Matrix {
 public:
 	Vector() = default;
+	Vector(Matrix& M) : Matrix(M) {}
 	explicit Vector(UINT rows) : Matrix(rows, 1) {}
-    Vector(UINT rows, std::initializer_list<double> data) : Matrix(rows, 1, data) {}
+    Vector(UINT rows, std::initializer_list<double>& data) : Matrix(rows, 1, data) {}
+	Vector& operator=(std::initializer_list<double>&& data);
 	double& operator()(UINT row) { return ::Matrix::operator()(row, 0); }
 	double operator()(UINT row) const { return ::Matrix::operator()(row, 0); }
     double dot(const Vector &other) { return (this->transpose() * other)(0, 0); }

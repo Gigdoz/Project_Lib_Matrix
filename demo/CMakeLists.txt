@@ -1,11 +1,17 @@
-﻿project (demo)
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.10)
 
+project(demo)
 
-add_library(StaticLib StaticLib/Matrix.h  StaticLib/Matrix.cpp "StaticLib/Matrix.cpp" "StaticLib/Matrix.h")
-target_include_directories(StaticLib PUBLIC StaticLib)
+add_library(Lib lib/Matrix.h lib/Matrix.cpp)
+target_include_directories(Lib PUBLIC lib)
 
+add_executable(Tests tests/catch.h tests/tests.cpp)
 
-add_executable(tests tests/catch.h tests/tests.cpp "StaticLib/Matrix.cpp" "StaticLib/Matrix.h")
+target_link_libraries(Tests PUBLIC Lib)
 
-target_link_libraries(tests StaticLib)
+enable_testing()
+
+add_test(
+  NAME Tests
+  COMMAND $<TARGET_FILE:Tests>
+  )
