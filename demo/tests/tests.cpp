@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
+#include <iostream>
 #include "catch.h"
 #include "Matrix.h"
 
@@ -9,19 +10,25 @@ TEST_CASE("Error handling 'Out of range!'") {
     CHECK_THROWS(A(1, 4));
 }
 
+TEST_CASE("Filling using a list") {
+    Matrix A(2, 2);
+    A = {1, 2,
+         3, 4};
+    CHECK(A(0, 0) == 1);
+    CHECK(A(0, 1) == 2);
+    CHECK(A(1, 0) == 3);
+    CHECK(A(1, 1) == 4);
+}
+
 TEST_CASE("Error handling 'The size of the matrices does not match!'") {
     Matrix A(3, 2), B(2, 2);
-    A(0, 0) = 2;
-    A(0, 1) = 3;
-    A(1, 0) = 1;
-    A(1, 1) = 4;
-    A(2, 0) = 5;
-    A(2, 1) = 0;
+    A = {2, 3,
+         1, 4,
+         5, 0};
+    
+    B = {2, 1,
+         5, 3};
 
-    B(0, 0) = 2;
-    B(0, 1) = 1;
-    B(1, 0) = 5;
-    B(1, 1) = 3;
     CHECK_FALSE(A == B);
     CHECK_THROWS(A += B);
     CHECK_THROWS(A -= B);
@@ -29,16 +36,10 @@ TEST_CASE("Error handling 'The size of the matrices does not match!'") {
 
 TEST_CASE("Error handling 'The rows and columns of the matrices does not match!'") {
     Matrix A(3, 1), B(2, 3);
-    A(0, 0) = 2;
-    A(1, 0) = 1;
-    A(2, 0) = 5;
+    A = {2, 1, 5};
 
-    B(0, 0) = 2;
-    B(0, 1) = 1;
-    B(0, 2) = 3;
-    B(1, 0) = 5;
-    B(1, 1) = 3;
-    B(1, 2) = 6;
+    B = {2, 1, 3,
+         5, 3, 6};
 
     CHECK_THROWS(A * B);
 }
